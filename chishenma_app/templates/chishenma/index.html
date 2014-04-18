@@ -1,0 +1,14 @@
+<!-- Can refer to this with "chishenma/index.html" -->
+
+Welcome! 
+
+<form method="POST">
+    {{ form.username.errors }}
+    <label for="username">WeChat User Name:</label>
+    {{ form.username }}
+    {{ form.password.errors }}
+    <label for="password">Password:</label>
+    {{ form.password }}
+    <input type="submit" value="Submit"/>
+{% csrf_token %}
+</form>
