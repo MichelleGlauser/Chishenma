@@ -1,7 +1,29 @@
+# Version 2
+
+from django import forms 
+from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            return HttpResponseRedirect("/chishenma_app/")
+    else:
+        form = UserCreationForm()
+    return render(request, "registration/register.html", {
+        'form': form,
+    })
+
+
+
+
+
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.contrib.auth.forms import AuthenticationForm
 from django.core.context_processors import csrf
 from django.template import RequestContext, loader
 from django.views.generic import TemplateView
@@ -18,32 +40,28 @@ class HomeView(TemplateView):
         return context
 
 def index(request):
-	if not request.user.is_authenticated():
-		form = AuthenticationForm(request)
-	else:
-		form = None
-	context = {'form':form}
+	context = {}
 	populateContext(request, context)
 	return render(request, 'chishenma/index.html', context)
 
 def login(request):
 	context = {}
 	try:
-		username = request.GET['username']
-		password = request.GET['password']
-		user = authenticate(username=username, password=password)
-		if user is not None:
-			if user.is_active:
-				auth_login(request, user)
+			username = request.GET['username']
+			password = request.GET['password']
+			user = authenticate(username=username, password=password)
+			if user is not None:
+				if user.is_active:
+					auth_login(request, user)
+				else:
+					context['error'] = 'Non active user'
 			else:
-				context['error'] = 'Non active user'
-		else:
-			context['error'] = 'Wrong username or password'
-	except:
-		context['error'] = ''
-
-    	populateContext(request, context)
-    	return render(request, 'chishenma/index.html', context)
+				context['error'] = 'Wrong username or password'
+        except:
+			context['error'] = ''
+		
+        populateContext(request, context)
+        return render(request, 'chishenma/index.html', context)
 
 def logout(request):
 	context = {}
@@ -51,7 +69,7 @@ def logout(request):
 		auth_logout(request)
 	except:
 		context['error'] = 'Some error occured.'
-
+	
 	populateContext(request, context)
 	return render(request, 'index.html', context)
 
@@ -76,14 +94,14 @@ def auth_view(request):
 		return HttpResponseRedirect('chishenma/invalid_login/')
 
 	# if user is not None:
-	# auth.login(request, user)
-	# return HttpResponseRedirect('chishenma/loggedin/')
+	# 	auth.login(request, user)
+	# 	return HttpResponseRedirect('chishenma/loggedin/')
 	# else:
-	# return HttpResponseRedirect('chishenma/invalid_login/')
+	# 	return HttpResponseRedirect('chishenma/invalid_login/')
 
 def loggedin(request):
-	return render(request, 'chishenma/loggedin.html',
-	{'full_name': request.user.username})
+	return render(request, 'chishenma/loggedin.html', 
+							 {'full_name': request.user.username})
 
 def invalid_login(request):
 	return render(request, 'chishenma/invalid_login.html')
@@ -106,6 +124,6 @@ def your_restaurants(request):
 	return HttpResponse("It sounds like one of these places might suit your fancy.")
 
 # Can change to "(request, rest_name_en)" for specific URLs
-def restaurant_details(request):
-	# Add "% rest_name_en" at the end to have that as part of the URL:
+def restaurant_details(request): 
+# Add "% rest_name_en" at the end to have that as part of the URL:
 	return HttpResponse("Here are the deets.") 
