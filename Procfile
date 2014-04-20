@@ -1,0 +1,1 @@
+web: gunicorn chishenma_project.wsgi

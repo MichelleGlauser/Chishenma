@@ -105,7 +105,7 @@ def help_me_decide(request):
 	return render(request, 'chishenma/help_me_decide.html')
 
 def your_restaurants(request):
-	return HttpResponse("It sounds like one of these places might suit your fancy.")
+	return render(request, 'chishenma/your_restaurants.html')
 
 # Can change to "(request, rest_name_en)" for specific URLs
 def restaurant_details(request):

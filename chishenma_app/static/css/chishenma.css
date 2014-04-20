@@ -1,3 +1,11 @@
 body {
 	font: sans-serif;
 }
+
+#test {
+	width: 200px;
+	height:200px;
+	background-color:gray;
+    background: url({{ STATIC_URL }}images/bakedgoodness.jpg) no-repeat;  background-position: center; background-size: cover;;
+    
+}
