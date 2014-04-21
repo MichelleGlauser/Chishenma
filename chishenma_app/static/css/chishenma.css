@@ -1,11 +1,36 @@
 body {
-	font: sans-serif;
+	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+	background-color: white;
+	text-align:center;
+}
+
+#main {
+	vertical-align: middle;
+    text-align: center;
 }
 
 #test {
+	margin:auto;
+	text-align:center;
+}
+
+table {
+	text-align:center;
+}
+
+/*#test {
 	width: 200px;
 	height:200px;
-	background-color:gray;
+	background-color:white;
     background: url({{ STATIC_URL }}images/bakedgoodness.jpg) no-repeat;  background-position: center; background-size: cover;;
     
+}
+*/
+h1 {
+	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+#slider1_container img {
+    max-width:100%;
+    max-height:100%;
 }

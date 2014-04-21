@@ -2,23 +2,55 @@
 
 {% block title %}{% endblock %}
 {% block content %}
+<script>
+    jQuery(document).ready(function ($) {
 
-<script type="text/javascript" language="Javascript">
- $(window).load(function() { 
-    $('#imggallery').swipeGallery({autoHeight: true});  
- });
-</script> 
-<div id="options_pg">
-    <h1>Swipe right for yes and left for no.</h1>
-    <ul id="imggallery">
+        var options = {
+            $FillMode: 4,
+        };                            
+        var jssor_slider1 = new $JssorSlider$('slider1_container', options);
 
-        <li><img src="{{ STATIC_URL }}images/indian.jpg" alt="" title=""/></li>
-        <li><img src="{{ STATIC_URL }}images/hamburger.jpg" alt="" title=""/></li>
-        <li><img src="{{ STATIC_URL }}images/italian-pizza.jpg" alt="" title=""/></li>
-        <li><img src="{{ STATIC_URL }}images/hummus.jpg" alt="" title=""/></li>
-        <li><img src="{{ STATIC_URL }}images/pie.jpg" alt="" title=""/></li>
-        <li><img src="{{ STATIC_URL }}images/montecristo.jpg" alt="" title=""/></li>
-        <li><img src="{{ STATIC_URL }}images/eclairs.jpg" alt="" title=""/></li>
-    </ul> 
-</div>
+        //responsive code begin
+        function ScaleSlider() {
+            var parentWidth = $('#slider1_container').parent().width();
+            if (parentWidth) {
+                jssor_slider1.$SetScaleWidth(parentWidth);
+            }
+            else
+                window.setTimeout(ScaleSlider, 30);
+        }
+        //Scale slider after document ready
+        ScaleSlider();
+        if (!navigator.userAgent.match(/(iPhone|iPod|iPad|BlackBerry|IEMobile)/)) {
+            //Capture window resize event
+            $(window).bind('resize', ScaleSlider);
+        }
+        //responsive code end
+    });
+</script>
+<style>
+
+</style>
+<div id="main">
+       <h1>Swipe right for yes</br> and left for no.</h1>
+    <div id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 300px; height: 200px; overflow: hidden;">
+            <!-- Loading Screen -->
+        <div u="loading" style="position: absolute; top: 0px; left: 0px;">
+            <!-- your loading screen content here -->
+        </div>
+        <!-- Slides Container -->
+        <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0px; top: 0px; width: 300px; height: 180px;">
+            <div><img src="{{ STATIC_URL }}images/indian.jpg" alt="" title=""/></div> 
+            <div><img src="{{ STATIC_URL }}images/hamburger.jpg" alt="" title=""/></div> 
+            <div><img src="{{ STATIC_URL }}images/italian-pizza.jpg" alt="" title=""/></div> 
+            <div><img src="{{ STATIC_URL }}images/hummus.jpg" alt="" title=""/></div> 
+            <div><img src="{{ STATIC_URL }}images/pie.jpg" alt="" title=""/></div> 
+            <div><img src="{{ STATIC_URL }}images/montecristo.jpg" alt="" title=""/></div> 
+            <div><img src="{{ STATIC_URL }}images/eclairs.jpg" alt="" title=""/></div> 
+        </div> 
+        <script>jssor_slider1_starter('slider1_container');</script>
+    </div>
+</div>  
+</div> 
+
 {% endblock %}
