@@ -11,14 +11,6 @@ from django.views.generic import TemplateView
 from chishenma_app.models import Category, Dish, Menu, Review, Restaurant, Bookmark, User
 
 
-class HomeView(TemplateView):
-    template_name = "index.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(HomePageView, self).get_context_data(**kwargs)
-        context['latest_articles'] = Article.objects.all()[:5]
-        return context
-
 def index(request):
 	if not request.user.is_authenticated():
 		form = AuthenticationForm(request)
@@ -77,12 +69,6 @@ def auth_view(request):
 	else:
 		return HttpResponseRedirect('chishenma/invalid_login/')
 
-	# if user is not None:
-	# auth.login(request, user)
-	# return HttpResponseRedirect('chishenma/loggedin/')
-	# else:
-	# return HttpResponseRedirect('chishenma/invalid_login/')
-
 def loggedin(request):
 	return render(request, 'chishenma/loggedin.html',
 	{'full_name': request.user.username})
@@ -95,11 +81,8 @@ def logout(request):
 	return render(request, 'chishenma/logout.html')
 
 
-
-
-
 def choose_food(request):
-	return HttpResponse("Choose your food here.")
+	return render(request, 'chishenma/choose_food.html')
 
 def help_me_decide(request):
 	return render(request, 'chishenma/help_me_decide.html')

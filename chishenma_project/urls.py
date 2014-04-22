@@ -9,11 +9,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'chishenma_app.views.index', name='home'),
-    # url(r'^blog/', include('blog.urls')),
     url(r'^chishenma_app/', include('chishenma_app.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    #url(r'^/$', TemplateView.as_view(template_name='index.html'), name='home'),
-    # url(r'^$', 'chishenma_app.views.index'),
 
     # user auth urls
     url(r'^auth/$', 'chishenma_app.views.auth_view'),
