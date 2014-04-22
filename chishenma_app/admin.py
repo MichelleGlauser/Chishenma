@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
-from chishenma_app.models import Category, Dish, Menu, Review, Restaurant, Bookmark
+from chishenma_app.models import Category, Dish, Menu, Review, Restaurant, Bookmark, Foodie
 
 # These two classes for adding dishes while editing menus are not working yet.
 # Apparently inline doesn't work with ManyToManyFields, see here: http://stackoverflow.com/questions/5345673/django-no-foreignkey-but-its-a-manytomanyfield
@@ -23,6 +23,7 @@ from chishenma_app.models import Category, Dish, Menu, Review, Restaurant, Bookm
 # 	search_fields = ['review_text']
 
 # Keep these at the bottom:
+admin.site.register(Foodie)
 admin.site.register(Category)
 admin.site.register(Dish)
 # admin.site.register(Menu, MenuAdmin)

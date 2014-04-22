@@ -72,29 +72,18 @@ class Restaurant(models.Model):
     def __unicode__(self):
         return self.rest_name_en
 
-# class FoodieManager(BaseUserManager):
-#     def create_user(self, user_wechat, password):
-# 	    user = self.create_user(user_wechat, password=password)
-# 	    user.save()
-# 	    return user
+class Foodie(models.Model):
+    user_wechat = models.OneToOneField(User)
 
-# class Foodie(AbstractBaseUser):
-#     user_wechat = models.CharField(max_length=50, unique=True)
-#     # user_password = models.
-#     user_city = models.CharField(max_length=25)
-#     # user_id = # this is the real order of sign up 
-#     user_waitlist_status = models.BooleanField(default=False)
-#     user_waitlist_num = models.IntegerField()
-#     user_num_referrals = models.IntegerField()
+    # extended models for the User
+    user_city = models.CharField(max_length=25)
+    user_waitlist_status = models.BooleanField(default=False)
+    user_waitlist_num = models.IntegerField(blank=True)
+    user_num_referrals = models.IntegerField(blank=True)
 
 #     user_friend_wechat_ids = models.ForeignKey('Foodie') #need a friend table?
 #     user_bookmark_id = models.ForeignKey('Bookmark')
 #     reviewer = models.ForeignKey('Review')
-
-#     USERNAME_FIELD = 'user_wechat'
-#     REQUIRED_FIELDS = []
-
-#     objects = FoodieManager()
 
 #     # def get_absolute_url(self):
 #  #        return "/users/%s/" % urlquote(self.user_wechat)
@@ -102,6 +91,9 @@ class Restaurant(models.Model):
 #     def email_user(self, subject, message, from_email=None):
 #         # Sends an email to this user.
 #         send_mail(subject, message, from_email, [self.email])
+
+def __unicode__(self):
+    return self.user_wechat.username
 
 class Bookmark(models.Model):
     bookmark_rest_id = models.IntegerField()
