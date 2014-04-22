@@ -2,32 +2,23 @@
 
 {% block title %}{% endblock %}
 {% block content %}
-
-<style>
-/*#loader { display: none;  }
-#loader { display: block; position: absolute; left: 100px; top: 0; }*/
-
-.loader {
-	position:fixed;
-	left:0px;
-	top:0px;
-	width:100%;
-	height:100%;
-	z-index:9999;
-	background:url("{{ STATIC_URL }}images/loading.png") 50% 50% no-repeat rgb(249,249,249);
-}
-</style>
 <script>
-	// Wait for window load
-	$(window).load(function() {
-		// Animate loader off screen
-		$(".loader").animate({
-			top: -1000
-		}, 2000);
-	});
-</script>	
-	<div class="loader">
+    $(document).on("click", ".show-page-loading-msg", function() {          
+        $.mobile.loading('show');
+    });
+</script>
+<script>
+    $(document).bind( 'mobileinit', function(){
+      $.mobile.loader.prototype.options.text = "loading";
+      $.mobile.loader.prototype.options.textVisible = true;
+      $.mobile.loader.prototype.options.theme = "a";
+      $.mobile.loader.prototype.options.textonly = false;
+      $.mobile.loader.prototype.options.html = "<span class='ui-bar ui-overlay-c ui-corner-all'><img src='{{ STATIC_URL }}images/loading.png' /><h2>Firing up our decision-o-matic engine, please hold . . .</h2></span>";
+    });
+</script>
+
+<div data-role="content" class="ui-bar-c ui-corner-all ui-shadow" style="padding:1em;">
+    <p class="show-page-loading-msg"></p>
 </div>
-<img src="{{ STATIC_URL }}images/test1.png">
 
 {% endblock %}
