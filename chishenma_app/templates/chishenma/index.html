@@ -4,6 +4,13 @@
 {% block content %}
 <!-- Can refer to this with "chishenma/index.html" -->
 
+<div data-role="page" id="home" data-theme="c">
+    <div data-role="content">
+        <div id="branding">
+            <h1>Chi Shen Ma</h1>
+        </div>
+
+        
 Welcome!
 
 {% if not authenticated %}
@@ -29,12 +36,6 @@ Welcome!
 <p><a href="/register/">Sign up</p>
     {% endif %}
 </div>
-
-<div data-role="page" id="home" data-theme="c">
-    <div data-role="content">
-        <div id="branding">
-            <h1>Chi Shen Ma</h1>
-        </div>
     
         <div class="choice_list">
         <h1> What would you like to eat? </h1>
