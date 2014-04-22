@@ -3,7 +3,147 @@
 {% block title %}{% endblock %}
 {% block content %}
 
-{% if latest_poll_list %}
+
+        <div data-role="page" style="min-height:568px;" dsid="sosh" id="sosh" class="type-interior"
+        data-theme="a">
+            <!-- mobileheader -->
+            <div data-role="header" data-position="fixed" data-add-back-btn="false" data-back-btn-text="Back"
+            data-theme="a" name="mobileheader" id="sosh_mobileheader" class="withoutCaption  sosh_mobileheader">
+                <h1 dsid="mobileheader">&nbsp;
+                    
+                </h1>
+                <!-- mobileimage_24 -->
+                <img class="headerImage  sosh_mobileimage_24" src="{{ STATIC_URL }}images/ChiShenMa_Logo_Feb2014_Chinese2.png"
+                id="sosh_mobileimage_24" dsid="mobileimage_24" name="mobileimage_24" />
+            </div>
+            <!-- mobilecontainer -->
+            <div data-role="content" id="sosh_mobilecontainer" name="mobilecontainer" class="sosh_mobilecontainer ui-content"
+            dsid="mobilecontainer" data-theme="a">
+                <link href="{{ STATIC_URL }}css/sosh.css" rel="stylesheet" type="text/css" />
+                <script type="text/javascript" src="{{ STATIC_URL }}js/sosh.js">
+                </script>
+                <!-- mobilegrid_1 -->
+                <div class="sosh_mobilegrid_1_wrapper" data-wrapper-for="mobilegrid_1">
+                    <table id="sosh_mobilegrid_1" class="sosh_mobilegrid_1" dsid="mobilegrid_1" name="mobilegrid_1"
+                    cellpadding=0 cellspacing=0>
+                        <col style="width:50%;" />
+                        <col style="width:auto;" />
+                        <tr class="sosh_mobilegrid_1_row_0">
+                            <!-- mobilegridcell_2 -->
+                            <td id="sosh_mobilegridcell_2" name="mobilegridcell_2" class="sosh_mobilegridcell_2"
+                            colspan=1 rowspan=1>
+                                <div class="cell-wrapper">
+                                    <!-- mobileimage_6 -->
+                                    <img class="sosh_mobileimage_6" src="{{ STATIC_URL }}images/killer_view.png" id="sosh_mobileimage_6"
+                                    dsid="mobileimage_6" name="mobileimage_6" />
+                                </div>
+                            </td>
+                            <!-- mobilegridcell_3 -->
+                            <td id="sosh_mobilegridcell_3" name="mobilegridcell_3" class="sosh_mobilegridcell_3"
+                            colspan=1 rowspan=1>
+                                <div class="cell-wrapper">
+                                    <!-- mobileimage_7 -->
+                                    <img class="sosh_mobileimage_7" src="{{ STATIC_URL }}images/veggie_heaven.png"
+                                    id="sosh_mobileimage_7" dsid="mobileimage_7" name="mobileimage_7" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="sosh_mobilegrid_1_row_1">
+                            <!-- mobilegridcell_4 -->
+                            <td id="sosh_mobilegridcell_4" name="mobilegridcell_4" class="sosh_mobilegridcell_4"
+                            colspan=1 rowspan=1>
+                                <div class="cell-wrapper">
+                                    <!-- mobileimage_8 -->
+                                    <img class="sosh_mobileimage_8" src="{{ STATIC_URL }}images/veggie_heaven.png"
+                                    id="sosh_mobileimage_8" dsid="mobileimage_8" name="mobileimage_8" />
+                                </div>
+                            </td>
+                            <!-- mobilegridcell_5 -->
+                            <td id="sosh_mobilegridcell_5" name="mobilegridcell_5" class="sosh_mobilegridcell_5"
+                            colspan=1 rowspan=1>
+                                <div class="cell-wrapper">
+                                    <!-- mobileimage_15 -->
+                                    <img class="sosh_mobileimage_15" src="{{ STATIC_URL }}images/killer_view.png"
+                                    id="sosh_mobileimage_15" dsid="mobileimage_15" name="mobileimage_15" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="sosh_mobilegrid_1_row_2">
+                            <!-- mobilegridcell_9 -->
+                            <td id="sosh_mobilegridcell_9" name="mobilegridcell_9" class="sosh_mobilegridcell_9"
+                            colspan=1 rowspan=1>
+                                <div class="cell-wrapper">
+                                    <!-- mobileimage_16 -->
+                                    <img class="sosh_mobileimage_16" src="{{ STATIC_URL }}images/killer_view.png"
+                                    id="sosh_mobileimage_16" dsid="mobileimage_16" name="mobileimage_16" />
+                                </div>
+                            </td>
+                            <!-- mobilegridcell_10 -->
+                            <td id="sosh_mobilegridcell_10" name="mobilegridcell_10" class="sosh_mobilegridcell_10"
+                            colspan=1 rowspan=1>
+                                <div class="cell-wrapper">
+                                    <!-- mobileimage_17 -->
+                                    <img class="sosh_mobileimage_17" src="{{ STATIC_URL }}images/veggie_heaven.png"
+                                    id="sosh_mobileimage_17" dsid="mobileimage_17" name="mobileimage_17" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="sosh_mobilegrid_1_row_3">
+                            <!-- mobilegridcell_11 -->
+                            <td id="sosh_mobilegridcell_11" name="mobilegridcell_11" class="sosh_mobilegridcell_11"
+                            colspan=1 rowspan=1>
+                                <div class="cell-wrapper">
+                                    <!-- mobileimage_18 -->
+                                    <img class="sosh_mobileimage_18" src="{{ STATIC_URL }}images/veggie_heaven.png"
+                                    id="sosh_mobileimage_18" dsid="mobileimage_18" name="mobileimage_18" />
+                                </div>
+                            </td>
+                            <!-- mobilegridcell_12 -->
+                            <td id="sosh_mobilegridcell_12" name="mobilegridcell_12" class="sosh_mobilegridcell_12"
+                            colspan=1 rowspan=1>
+                                <div class="cell-wrapper">
+                                    <!-- mobileimage_19 -->
+                                    <img class="sosh_mobileimage_19" src="{{ STATIC_URL }}images/killer_view.png"
+                                    id="sosh_mobileimage_19" dsid="mobileimage_19" name="mobileimage_19" />
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="sosh_mobilegrid_1_row_4">
+                            <!-- mobilegridcell_13 -->
+                            <td id="sosh_mobilegridcell_13" name="mobilegridcell_13" class="sosh_mobilegridcell_13"
+                            colspan=1 rowspan=1>
+                                <div class="cell-wrapper">
+                                    <!-- mobileimage_20 -->
+                                    <img class="sosh_mobileimage_20" src="{{ STATIC_URL }}images/killer_view.png"
+                                    id="sosh_mobileimage_20" dsid="mobileimage_20" name="mobileimage_20" />
+                                </div>
+                            </td>
+                            <!-- mobilegridcell_14 -->
+                            <td id="sosh_mobilegridcell_14" name="mobilegridcell_14" class="sosh_mobilegridcell_14"
+                            colspan=1 rowspan=1>
+                                <div class="cell-wrapper">
+                                    <!-- mobileimage_22 -->
+                                    <img class="sosh_mobileimage_22" src="{{ STATIC_URL }}images/veggie_heaven.png"
+                                    id="sosh_mobileimage_22" dsid="mobileimage_22" name="mobileimage_22" />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- mobilefooter -->
+            <div data-role="footer" data-position="fixed" class="sosh_mobilefooter" name="mobilefooter"
+            dsid="mobilefooter" id="sosh_mobilefooter" data-theme="a">
+            </div>
+        </div>
+    </body>
+
+</html>
+{% endblock %}
+
+
+
+<!-- {% if latest_poll_list %}
     <ul>
     {% for poll in latest_poll_list %}
         <li><a href="/polls/{{ poll.id }}/">{{ poll.question }}</a></li>
@@ -11,6 +151,5 @@
     </ul>
 {% else %}
     <p>No polls are available.</p>
-{% endif %}
+{% endif %} -->
 
-{% endblock %}
