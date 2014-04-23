@@ -2,55 +2,73 @@
 
 {% block title %}{% endblock %}
 {% block content %}
-<script>
-    jQuery(document).ready(function ($) {
 
-        var options = {
-            $FillMode: 4,
-        };                            
-        var jssor_slider1 = new $JssorSlider$('slider1_container', options);
-
-        //responsive code begin
-        function ScaleSlider() {
-            var parentWidth = $('#slider1_container').parent().width();
-            if (parentWidth) {
-                jssor_slider1.$SetScaleWidth(parentWidth);
-            }
-            else
-                window.setTimeout(ScaleSlider, 30);
-        }
-        //Scale slider after document ready
-        ScaleSlider();
-        if (!navigator.userAgent.match(/(iPhone|iPod|iPad|BlackBerry|IEMobile)/)) {
-            //Capture window resize event
-            $(window).bind('resize', ScaleSlider);
-        }
-        //responsive code end
-    });
-</script>
-<style>
-
-</style>
-<div id="main">
-       <h1>Swipe right for yes</br> and left for no.</h1>
-    <div id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 300px; height: 200px; overflow: hidden;">
-            <!-- Loading Screen -->
-        <div u="loading" style="position: absolute; top: 0px; left: 0px;">
-            <!-- your loading screen content here -->
-        </div>
-        <!-- Slides Container -->
-        <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0px; top: 0px; width: 300px; height: 180px;">
-            <div><img src="{{ STATIC_URL }}images/indian.jpg" alt="" title=""/></div> 
-            <div><img src="{{ STATIC_URL }}images/hamburger.jpg" alt="" title=""/></div> 
-            <div><img src="{{ STATIC_URL }}images/italian-pizza.jpg" alt="" title=""/></div> 
-            <div><img src="{{ STATIC_URL }}images/hummus.jpg" alt="" title=""/></div> 
-            <div><img src="{{ STATIC_URL }}images/pie.jpg" alt="" title=""/></div> 
-            <div><img src="{{ STATIC_URL }}images/montecristo.jpg" alt="" title=""/></div> 
-            <div><img src="{{ STATIC_URL }}images/eclairs.jpg" alt="" title=""/></div> 
-        </div> 
-        <script>jssor_slider1_starter('slider1_container');</script>
+    <div class="single-item add-remove slider">
+            <div><img src="{{ STATIC_URL }}images/indian.jpg" alt="" title=""/><h1>Swipe right for yes and left for no.</h1></div>
+            <div><img src="{{ STATIC_URL }}images/hamburger.jpg" alt="" title=""/><h1>Swipe right for yes and left for no.</h1></div>
+            <div><img src="{{ STATIC_URL }}images/italian-pizza.jpg" alt="" title=""/><h1>Swipe right for yes and left for no.</h1></div>
+            <div><img src="{{ STATIC_URL }}images/hummus.jpg" alt="" title=""/><h1>Swipe right for yes and</br> left for no.</h1></div>
+            <div><img src="{{ STATIC_URL }}images/pie.jpg" alt="" title=""/><h1>Swipe right for yes and left for no.</h1></div>
+            <div><img src="{{ STATIC_URL }}images/montecristo.jpg" alt="" title=""/><h1>Swipe right for yes and left for no.</h1></div> 
+            <div><img src="{{ STATIC_URL }}images/eclairs.jpg" alt="" title=""/><h1>Swipe right for yes and left for no.</h1></div> 
     </div>
-</div>  
-</div> 
+
+
+            
+<script>
+$( document ).ready(function() {
+(function () {
+    var images = ['<img src="http://i242.photobucket.com/albums/ff231/bour3/things%20I%20made%20then%20ate/hamburger.jpg" alt="" title=""/>', '<img src="http://i1037.photobucket.com/albums/a452/drmadvertising/Peninsula%20Papers/Peninsula%20Puzzles/HibachiGrillPuzz.jpg" alt="" title=""/>', '<img src="http://i1360.photobucket.com/albums/r653/brylans2013/Brylans%20Cafe%20Advertisment/9f34ef72-615e-45e9-a182-ec0c670f63a6_zps7d960dc7.jpg" alt="" title=""/>'];     
+    
+    var input = 'this is a series of words that you choose to like or dislike'.split(' '); // test
+    
+    var carousel = $('.slider').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        onBeforeChange: function (slider) {
+            /** Super hacky... if you check direction at this point, you know which way we're going. */
+            carousel.direction = slider.swipeDirection();
+        },
+        onAfterChange: function (slider, index) {
+            if (slider.currentSlide === 1) {
+                
+                /** If you successfully swiped to the second item, clean up the first item and add the next item. */
+                var previousImage = carousel.removePreviousImage();
+                carousel.addNextImage();
+                
+                /** Fire event nope or yup based on direction. */
+                if (previousImage) {
+                    if (carousel.direction === 'left') { carousel.trigger('nope', [previousImage]); }
+                    else { carousel.trigger('yup', [previousImage]); }
+                }
+                
+            }
+        }
+    });
+    
+    carousel.addNextImage = function () {
+        var nextImage = images.shift();
+        this.images = this.images || [];
+        this.images.push(nextImage);
+        this.slickAdd($('<div>', { html: nextImage }));
+    };
+    
+    carousel.removePreviousImage = function () {
+        var previousImage = this.images.shift();
+        this.slickRemove(0);
+        return previousImage;
+    };
+    
+    /** Prepare the first two items. */
+    carousel.addNextImage();
+    carousel.addNextImage();
+    
+    /** Do something when the carousel says nope or yup. */
+    carousel.on('nope', function (evt, image) { console.log('I did not like "', image, '"'); });
+    carousel.on('yup',  function (evt, image) { console.log('I did like "', image, '"'); });    
+    
+}());
+});
+</script>
 
 {% endblock %}
