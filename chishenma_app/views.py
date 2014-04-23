@@ -1,5 +1,6 @@
 # coding=utf-8
 from __future__ import unicode_literals
+# from django.http import Http404 Need to make a 404.html, raise on notexist
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
@@ -81,8 +82,12 @@ def logout(request):
 	return render(request, 'chishenma/logout.html')
 
 
-def choose_food(request):
-	return render(request, 'chishenma/choose_food.html')
+
+
+
+def choose_category(request):
+	# , category_label, category_img, category_tag
+	return render(request, 'chishenma/choose_category.html')
 
 def help_me_decide(request):
 	return render(request, 'chishenma/help_me_decide.html')

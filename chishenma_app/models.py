@@ -20,31 +20,13 @@ class Dish(models.Model):
     dish_course = models.CharField(max_length=30)
     dish_price = models.IntegerField()
     dish_last_reviewed = models.DateTimeField()
-    dish_similar = models.CharField(max_length=30) # How will this work? Maybe to ID?
+    dish_similar = models.CharField(max_length=30) # How will this work?
 
     menu = models.ManyToManyField('Menu')
 
     def __unicode__(self):
         return self.dish_name_en
-
-class Menu(models.Model):
-    menu_price = models.IntegerField()
-    menu_num_people = models.IntegerField()
-    menu_tags = models.CharField(max_length=200) # How will this work?
-    menu_date = models.DateTimeField()
-
-    # def __unicode__(self):
-    #     return self.name
-
-class Review(models.Model):
-    review_text = models.CharField(max_length=400)
-    review_date = models.DateTimeField()
-
-    restaurant = models.ForeignKey('Restaurant')
-
-    # def __unicode__(self):
-    #     return self.name
-
+        
 class Restaurant(models.Model):
     rest_name_en = models.CharField(max_length=50)
     rest_name_cn = models.CharField(max_length=50)
@@ -63,14 +45,31 @@ class Restaurant(models.Model):
     rest_map_url = models.CharField(max_length=200, null=True)
 
     category = models.ForeignKey(Category)
-    dish = models.ForeignKey(Dish)
-    menu = models.ForeignKey(Menu)
-    rest_bookmarked_users = models.ForeignKey(User)
-    # OR with customized Foodie do the following?:
-    # rest_bookmarked_users = models.ForeignKey(settings.AUTH_USER_MODEL)
+    rest_dishes = models.ForeignKey(Dish)
+    bookmarked_by = models.ForeignKey(User) # Users who have bookmarked a restaurant
 
     def __unicode__(self):
         return self.rest_name_en
+
+class Menu(models.Model):
+    menu_price = models.IntegerField()
+    menu_num_people = models.IntegerField()
+    menu_tags = models.CharField(max_length=200) # How will this work?
+    menu_date = models.DateTimeField()
+
+    menu_rest = models.ForeignKey('Restaurant')
+    # def __unicode__(self):
+    #     return self.name
+
+class Review(models.Model):
+    review_text = models.CharField(max_length=400)
+    review_date = models.DateTimeField()
+
+    restaurant = models.ForeignKey('Restaurant')
+    reviewer = models.ForeignKey(User) # Is this in the right place?
+
+    # def __unicode__(self):
+    #     return self.name
 
 class Foodie(models.Model):
     user_wechat = models.OneToOneField(User)
@@ -81,14 +80,12 @@ class Foodie(models.Model):
     user_waitlist_num = models.IntegerField(blank=True)
     user_num_referrals = models.IntegerField(blank=True)
 
-#     user_friend_wechat_ids = models.ForeignKey('Foodie') #need a friend table?
-#     user_bookmark_id = models.ForeignKey('Bookmark')
-#     reviewer = models.ForeignKey('Review')
+#     user_friend_wechat_ids = models.ForeignKey('Foodie') # Do we need a friend table for this?
 
-#     # def get_absolute_url(self):
+#     # def get_absolute_url(self): # What does this do?
 #  #        return "/users/%s/" % urlquote(self.user_wechat)
 
-#     def email_user(self, subject, message, from_email=None):
+#     def email_user(self, subject, message, from_email=None): # Does this work?
 #         # Sends an email to this user.
 #         send_mail(subject, message, from_email, [self.email])
 
@@ -101,7 +98,9 @@ class Bookmark(models.Model):
     bookmark_notes = models.CharField(max_length=200)
     bookmark_img = models.ImageField(upload_to='user/images/', null=True)
 
+    bookmarker = models.ForeignKey(User)
+
     def __unicode__(self):
         return self.name
 
-# class SettingsBackend(object):
+# class SettingsBackend(object): # Do I need this with the customized User?
