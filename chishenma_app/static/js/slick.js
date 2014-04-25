@@ -38,8 +38,8 @@
                 responsiveSettings, breakpoint;
 
             _.defaults = {
-                accessibility: true,
-                arrows: true,
+                accessibility: false,
+                arrows: false,
                 autoplay: false,
                 autoplaySpeed: 3000,
                 centerMode: false,
@@ -605,6 +605,14 @@
             _.reinit();
 
         }
+
+    };
+
+    Slick.prototype.getCurrent = function() {
+
+        var _ = this;
+
+        return _.currentSlide;
 
     };
 

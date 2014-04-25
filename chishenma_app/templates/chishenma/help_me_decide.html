@@ -3,48 +3,47 @@
 {% block title %}{% endblock %}
 {% block content %}
 
-    <div class="single-item add-remove slider">
-            <div><img src="{{ STATIC_URL }}images/indian.jpg" alt="" title=""/><h1>Swipe right for yes and left for no.</h1></div>
-            <div><img src="{{ STATIC_URL }}images/hamburger.jpg" alt="" title=""/><h1>Swipe right for yes and left for no.</h1></div>
-            <div><img src="{{ STATIC_URL }}images/italian-pizza.jpg" alt="" title=""/><h1>Swipe right for yes and left for no.</h1></div>
-            <div><img src="{{ STATIC_URL }}images/hummus.jpg" alt="" title=""/><h1>Swipe right for yes and</br> left for no.</h1></div>
-            <div><img src="{{ STATIC_URL }}images/pie.jpg" alt="" title=""/><h1>Swipe right for yes and left for no.</h1></div>
-            <div><img src="{{ STATIC_URL }}images/montecristo.jpg" alt="" title=""/><h1>Swipe right for yes and left for no.</h1></div> 
-            <div><img src="{{ STATIC_URL }}images/eclairs.jpg" alt="" title=""/><h1>Swipe right for yes and left for no.</h1></div> 
-    </div>
-
-
+<p class="message">Swipe right for yes and left for no.</p>
+<div class="slider slick-loading">
+</div>
+<div class="results">
+</div>
             
 <script>
 $( document ).ready(function() {
 (function () {
-    var images = ['<img src="http://i242.photobucket.com/albums/ff231/bour3/things%20I%20made%20then%20ate/hamburger.jpg" alt="" title=""/>', '<img src="http://i1037.photobucket.com/albums/a452/drmadvertising/Peninsula%20Papers/Peninsula%20Puzzles/HibachiGrillPuzz.jpg" alt="" title=""/>', '<img src="http://i1360.photobucket.com/albums/r653/brylans2013/Brylans%20Cafe%20Advertisment/9f34ef72-615e-45e9-a182-ec0c670f63a6_zps7d960dc7.jpg" alt="" title=""/>'];     
+    var noList = [];
+    var yesList = [];
+    var images = ['<img src="{{ STATIC_URL }}images/indian.jpg" alt="" title=""/>', '<img src="{{ STATIC_URL }}images/hamburger.jpg" alt="" title="hamburger"/>', '<img src="{{ STATIC_URL }}images/italian-pizza.jpg" alt="" title="pizza"/>', '<img src="{{ STATIC_URL }}images/hummus.jpg" alt="" title="hummus"/>', '<img src="{{ STATIC_URL }}images/pie.jpg" alt="" title="pie"/>', '<img src="{{ STATIC_URL }}images/montecristo.jpg" alt="" title="montecristo"/>', '<img src="{{ STATIC_URL }}images/eclairs.jpg" alt="" title="eclairs"/>'];     
     
     var input = 'this is a series of words that you choose to like or dislike'.split(' '); // test
     
-    var carousel = $('.slider').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        onBeforeChange: function (slider) {
-            /** Super hacky... if you check direction at this point, you know which way we're going. */
-            carousel.direction = slider.swipeDirection();
-        },
-        onAfterChange: function (slider, index) {
-            if (slider.currentSlide === 1) {
-                
-                /** If you successfully swiped to the second item, clean up the first item and add the next item. */
-                var previousImage = carousel.removePreviousImage();
-                carousel.addNextImage();
-                
-                /** Fire event nope or yup based on direction. */
-                if (previousImage) {
-                    if (carousel.direction === 'left') { carousel.trigger('nope', [previousImage]); }
-                    else { carousel.trigger('yup', [previousImage]); }
-                }
-                
+var carousel = $('.slider').slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    onBeforeChange: function (slider) {
+        /** Super hacky... if you check direction at this point, you know which way we're going. */
+        carousel.direction = slider.swipeDirection();
+    },
+    onAfterChange: function (slider, index) {
+        if (slider.currentSlide === 1) {
+            
+            /** If you successfully swiped to the second item, clean up the first item and add the next item. */
+            var previousImage = carousel.removePreviousImage();
+            carousel.addNextImage();
+            
+            /** Fire event nope or yup based on direction. */
+            if (previousImage) {
+                if (carousel.direction === 'left') { carousel.trigger('nope', [previousImage]); }
+                else { carousel.trigger('yup', [previousImage]); }
             }
-        }
-    });
+        } 
+
+        // else {
+        //     console.log("ALL GONE!");
+        //     }
+        } 
+});
     
     carousel.addNextImage = function () {
         var nextImage = images.shift();
@@ -63,9 +62,32 @@ $( document ).ready(function() {
     carousel.addNextImage();
     carousel.addNextImage();
     
+    carousel.sortImages = function () {
     /** Do something when the carousel says nope or yup. */
-    carousel.on('nope', function (evt, image) { console.log('I did not like "', image, '"'); });
-    carousel.on('yup',  function (evt, image) { console.log('I did like "', image, '"'); });    
+        carousel.on('nope', function (evt, image) { 
+            // console.log('I did not like "', image, '"'); 
+            noList.push(image);
+            console.log("You don't like:", noList);
+        });
+        carousel.on('yup',  function (evt, image) { 
+            // console.log('I did like "', image, '"'); 
+            yesList.push(image);  
+            console.log("You like:", yesList);  
+            // $('.results').replaceWith('You like:', yesList); //shows only one image
+            // console.log("Length of YL", yesList.length);
+            // console.log("NL", noList.length);
+            // if (yesList.length + noList.length === 7) {
+            //     console.log("All gone!");
+            // }
+        });
+        return yesList;
+    }
+    yesList = carousel.sortImages();
+    // console.log("Yay", yesList);
+    // $('.results').replaceWith('You like:', yesList);
+    // if ($('.slick-track:not(:contains("img")')) {
+    //     console.log("Empty!");
+    // }
     
 }());
 });
