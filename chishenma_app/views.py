@@ -1,13 +1,14 @@
 # coding=utf-8
 from __future__ import unicode_literals
 # from django.http import Http404 Need to make a 404.html, raise on notexist
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.context_processors import csrf
 from django.template import RequestContext, loader
 from django.views.generic import TemplateView
+# from django.contrib.auth.models import User, Permission
 
 from chishenma_app.models import Category, Dish, Menu, Review, Restaurant, Bookmark, User
 
@@ -87,15 +88,23 @@ def logout(request):
 
 def choose_category(request):
 	# , category_label, category_img, category_tag
+	# category_list = Category.objects.filter(category=category_id)
+	# for c in category_list:
+
 	return render(request, 'chishenma/choose_category.html')
 
 def help_me_decide(request):
+	# take results of sorting, do something
 	return render(request, 'chishenma/help_me_decide.html')
 
 def your_restaurants(request):
-	return render(request, 'chishenma/your_restaurants.html')
+
+# def your_restaurants(request, rest_id):
+	rests = Restaurant.objects.filter(rest_id=rest_id)
+	return render(request, 'chishenma/your_restaurants.html', {'rests':rests})
+	# return HttpResponse("These restaurants may interest you.")
 
 # Can change to "(request, rest_name_en)" for specific URLs
-def restaurant_details(request):
+def restaurant_details(request, rest_id):
 	# Add "% rest_name_en" at the end to have that as part of the URL:
-	return HttpResponse("Here are the deets.") 
+	return HttpResponse("Here are the deets for restaurant %s!" % rest_id) 
