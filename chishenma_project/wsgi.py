@@ -9,8 +9,8 @@ For more information on this file, see
 https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/
 """
 
-import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "chishenma_project.settings_production")
+# import os
+# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "chishenma_project.settings_production")
 
 
 
