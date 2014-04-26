@@ -1,5 +1,6 @@
+--allow-external
+
 Django==1.6.2
-PIL==1.1.7
 Pillow==2.4.0
 South==0.8.4
 dj-database-url==0.3.0
