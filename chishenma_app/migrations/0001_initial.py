@@ -1,5 +1,4 @@
-# coding=utf-8
-from __future__ import unicode_literals
+# -*- coding: utf-8 -*-
 from south.utils import datetime_utils as datetime
 from south.db import db
 from south.v2 import SchemaMigration
@@ -41,25 +40,6 @@ class Migration(SchemaMigration):
         ))
         db.create_unique(m2m_table_name, ['dish_id', 'menu_id'])
 
-        # Adding model 'Menu'
-        db.create_table(u'chishenma_app_menu', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('menu_price', self.gf('django.db.models.fields.IntegerField')()),
-            ('menu_num_people', self.gf('django.db.models.fields.IntegerField')()),
-            ('menu_tags', self.gf('django.db.models.fields.CharField')(max_length=200)),
-            ('menu_date', self.gf('django.db.models.fields.DateTimeField')()),
-        ))
-        db.send_create_signal(u'chishenma_app', ['Menu'])
-
-        # Adding model 'Review'
-        db.create_table(u'chishenma_app_review', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('review_text', self.gf('django.db.models.fields.CharField')(max_length=400)),
-            ('review_date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('restaurant', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['chishenma_app.Restaurant'])),
-        ))
-        db.send_create_signal(u'chishenma_app', ['Review'])
-
         # Adding model 'Restaurant'
         db.create_table(u'chishenma_app_restaurant', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -79,11 +59,42 @@ class Migration(SchemaMigration):
             ('rest_url', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('rest_map_url', self.gf('django.db.models.fields.CharField')(max_length=200, null=True)),
             ('category', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['chishenma_app.Category'])),
-            ('dish', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['chishenma_app.Dish'])),
-            ('menu', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['chishenma_app.Menu'])),
-            ('rest_bookmarked_users', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('rest_dishes', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['chishenma_app.Dish'])),
+            ('bookmarked_by', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
         ))
         db.send_create_signal(u'chishenma_app', ['Restaurant'])
+
+        # Adding model 'Menu'
+        db.create_table(u'chishenma_app_menu', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('menu_price', self.gf('django.db.models.fields.IntegerField')()),
+            ('menu_num_people', self.gf('django.db.models.fields.IntegerField')()),
+            ('menu_tags', self.gf('django.db.models.fields.CharField')(max_length=200)),
+            ('menu_date', self.gf('django.db.models.fields.DateTimeField')()),
+            ('menu_rest', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['chishenma_app.Restaurant'])),
+        ))
+        db.send_create_signal(u'chishenma_app', ['Menu'])
+
+        # Adding model 'Review'
+        db.create_table(u'chishenma_app_review', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('review_text', self.gf('django.db.models.fields.CharField')(max_length=400)),
+            ('review_date', self.gf('django.db.models.fields.DateTimeField')()),
+            ('restaurant', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['chishenma_app.Restaurant'])),
+            ('reviewer', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+        ))
+        db.send_create_signal(u'chishenma_app', ['Review'])
+
+        # Adding model 'Foodie'
+        db.create_table(u'chishenma_app_foodie', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('user_wechat', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
+            ('user_city', self.gf('django.db.models.fields.CharField')(max_length=25)),
+            ('user_waitlist_status', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('user_waitlist_num', self.gf('django.db.models.fields.IntegerField')(blank=True)),
+            ('user_num_referrals', self.gf('django.db.models.fields.IntegerField')(blank=True)),
+        ))
+        db.send_create_signal(u'chishenma_app', ['Foodie'])
 
         # Adding model 'Bookmark'
         db.create_table(u'chishenma_app_bookmark', (
@@ -92,6 +103,7 @@ class Migration(SchemaMigration):
             ('bookmark_tags', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('bookmark_notes', self.gf('django.db.models.fields.CharField')(max_length=200)),
             ('bookmark_img', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True)),
+            ('bookmarker', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
         ))
         db.send_create_signal(u'chishenma_app', ['Bookmark'])
 
@@ -106,14 +118,17 @@ class Migration(SchemaMigration):
         # Removing M2M table for field menu on 'Dish'
         db.delete_table(db.shorten_name(u'chishenma_app_dish_menu'))
 
+        # Deleting model 'Restaurant'
+        db.delete_table(u'chishenma_app_restaurant')
+
         # Deleting model 'Menu'
         db.delete_table(u'chishenma_app_menu')
 
         # Deleting model 'Review'
         db.delete_table(u'chishenma_app_review')
 
-        # Deleting model 'Restaurant'
-        db.delete_table(u'chishenma_app_restaurant')
+        # Deleting model 'Foodie'
+        db.delete_table(u'chishenma_app_foodie')
 
         # Deleting model 'Bookmark'
         db.delete_table(u'chishenma_app_bookmark')
@@ -155,6 +170,7 @@ class Migration(SchemaMigration):
             'bookmark_notes': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'bookmark_rest_id': ('django.db.models.fields.IntegerField', [], {}),
             'bookmark_tags': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'bookmarker': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         },
         u'chishenma_app.category': {
@@ -177,26 +193,35 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'menu': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['chishenma_app.Menu']", 'symmetrical': 'False'})
         },
+        u'chishenma_app.foodie': {
+            'Meta': {'object_name': 'Foodie'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'user_city': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
+            'user_num_referrals': ('django.db.models.fields.IntegerField', [], {'blank': 'True'}),
+            'user_waitlist_num': ('django.db.models.fields.IntegerField', [], {'blank': 'True'}),
+            'user_waitlist_status': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'user_wechat': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'})
+        },
         u'chishenma_app.menu': {
             'Meta': {'object_name': 'Menu'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'menu_date': ('django.db.models.fields.DateTimeField', [], {}),
             'menu_num_people': ('django.db.models.fields.IntegerField', [], {}),
             'menu_price': ('django.db.models.fields.IntegerField', [], {}),
+            'menu_rest': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['chishenma_app.Restaurant']"}),
             'menu_tags': ('django.db.models.fields.CharField', [], {'max_length': '200'})
         },
         u'chishenma_app.restaurant': {
             'Meta': {'object_name': 'Restaurant'},
+            'bookmarked_by': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
             'category': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['chishenma_app.Category']"}),
-            'dish': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['chishenma_app.Dish']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'menu': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['chishenma_app.Menu']"}),
             'rest_address': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'rest_bookmarked_users': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
             'rest_branch': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'rest_city': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'rest_desc': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'rest_dianping_id': ('django.db.models.fields.IntegerField', [], {}),
+            'rest_dishes': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['chishenma_app.Dish']"}),
             'rest_district': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'rest_hours': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'rest_img': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True'}),
@@ -213,7 +238,8 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'restaurant': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['chishenma_app.Restaurant']"}),
             'review_date': ('django.db.models.fields.DateTimeField', [], {}),
-            'review_text': ('django.db.models.fields.CharField', [], {'max_length': '400'})
+            'review_text': ('django.db.models.fields.CharField', [], {'max_length': '400'}),
+            'reviewer': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
         },
         u'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
