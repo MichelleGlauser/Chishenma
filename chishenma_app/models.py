@@ -16,13 +16,13 @@ class Category(models.Model):
 
 class Dish(models.Model):
     dish_name_en = models.CharField(max_length=30)
-    dish_name_cn = models.CharField(max_length=30)
+    dish_name_cn = models.CharField(max_length=30, blank=True)
     dish_img = models.ImageField(upload_to='images/', null=True)
     dish_cuisine = models.CharField(max_length=30)
-    dish_course = models.CharField(max_length=30)
-    dish_price = models.IntegerField()
-    dish_last_reviewed = models.DateTimeField()
-    dish_similar = models.CharField(max_length=30) # How will this work?
+    dish_course = models.CharField(max_length=30, blank=True)
+    dish_price = models.IntegerField(blank=True)
+    dish_last_reviewed = models.DateTimeField(blank=True)
+    dish_similar = models.CharField(max_length=30, blank=True) # How will this work?
 
     menu = models.ManyToManyField('Menu')
 
@@ -31,24 +31,25 @@ class Dish(models.Model):
         
 class Restaurant(models.Model):
     rest_name_en = models.CharField(max_length=50)
-    rest_name_cn = models.CharField(max_length=50)
-    rest_branch = models.CharField(max_length=50)
-    rest_other_branches = models.CharField(max_length=400) # How will this work?
+    rest_name_cn = models.CharField(max_length=50, blank=True)
+    rest_branch = models.CharField(max_length=50, blank=True)
+    rest_other_branches = models.CharField(max_length=400, blank=True) # How will this work?
     rest_img = models.ImageField(upload_to='images/', null=True)
     rest_desc = models.CharField(max_length=100)
-    rest_dianping_id = models.IntegerField()
-    rest_latlong = models.CharField(max_length=100) # Store them together in a charfield, in the order google maps likes. split apart if needed, but how?
+    rest_dianping_id = models.IntegerField(blank=True)
+    rest_latlong = models.CharField(max_length=100, blank=True) # Store them together in a charfield, in the order google maps likes. split apart if needed, but how?
     rest_address = models.CharField(max_length=100)
     rest_district = models.CharField(max_length=50)
     rest_city = models.CharField(max_length=50)
     rest_phone = models.CharField(max_length=30) # With a custom validation method
-    rest_hours = models.CharField(max_length=100)
-    rest_url = models.CharField(max_length=100)
-    rest_map_url = models.CharField(max_length=200, null=True)
+    rest_hours = models.CharField(max_length=100, blank=True)
+    rest_url = models.CharField(max_length=100, blank=True)
+    rest_map_url = models.CharField(max_length=200, blank=True)
 
     category = models.ForeignKey(Category)
-    rest_dishes = models.ForeignKey(Dish)
-    bookmarked_by = models.ForeignKey(User) # Users who have bookmarked a restaurant
+    rest_dishes = models.ForeignKey(Dish, blank=True)
+    bookmarked_by = models.ForeignKey(User, blank=True) # Users who have bookmarked a restaurant
+    rest_menu = models.ForeignKey('Menu', blank=True)
 
     def __unicode__(self):
         return self.rest_name_en
@@ -59,7 +60,7 @@ class Menu(models.Model):
     menu_tags = models.CharField(max_length=200) # How will this work?
     menu_date = models.DateTimeField()
 
-    menu_rest = models.ForeignKey('Restaurant')
+    # menu_rest = models.ForeignKey('Restaurant')
     # def __unicode__(self):
     #     return self.name
 
