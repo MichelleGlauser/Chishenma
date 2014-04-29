@@ -6,3 +6,4 @@ venv
 staticfiles
 chishenma.db
 config/local
+.elasticbeanstalk/
