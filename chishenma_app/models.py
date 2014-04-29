@@ -12,7 +12,7 @@ class Category(models.Model):
     def __unicode__(self):
         return self.category_label
 
-# class Tag(models.Model):
+# class Tag(models.Model): # Do I need this to have multiple tags?
 
 class Dish(models.Model):
     dish_name_en = models.CharField(max_length=30)
@@ -47,9 +47,9 @@ class Restaurant(models.Model):
     rest_map_url = models.CharField(max_length=200, blank=True)
 
     category = models.ForeignKey(Category)
-    rest_dishes = models.ForeignKey(Dish, blank=True)
-    bookmarked_by = models.ForeignKey(User, blank=True) # Users who have bookmarked a restaurant
-    rest_menu = models.ForeignKey('Menu', blank=True)
+    rest_dishes = models.ForeignKey(Dish, null=True, blank=True)
+    bookmarked_by = models.ForeignKey(User, null=True, blank=True) # Users who have bookmarked a restaurant
+    rest_menu = models.ForeignKey('Menu', null=True, blank=True)
 
     def __unicode__(self):
         return self.rest_name_en
