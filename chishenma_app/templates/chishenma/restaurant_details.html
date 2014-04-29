@@ -13,7 +13,7 @@
 	<div data-role="content">
 	<div class="ui-grid-a" id="restau_infos">	
 		<div class="ui-block-a">
-		    <h1>{{ restaurant.rest_name_en }}/{{ restaurant.rest_name_cn }}</h1>
+		    <h1>Name:{{ restaurant.rest_name_en }}/{{ restaurant.rest_name_cn }}</h1>
 		    <p>{{ restaurant.rest_branch }}</p>
     		<p><strong>{{ restaurant.rest_desc}}</strong></p>
 <!--     		<p><strong>{{ restaurant.category}}</strong></p> -->
@@ -36,10 +36,10 @@
 	<div class="ui-grid-a" id="contact_infos">	
 		<div class="ui-block-a">
     		<h2> Contact us</h2>
-	    	<p>{{ restaurant.rest_address }}</p>
-	    	<p>{{ restaurant.rest_district }}</p>
-	    	<p>{{ restaurant.rest_city }}</p>
-		    <p>{{ restaurant.rest_hours }}</p>		
+	    	<p>Address:{{ restaurant.rest_address }}</p>
+	    	<p>District:{{ restaurant.rest_district }}</p>
+	    	<p>City:{{ restaurant.rest_city }}</p>
+		    <p>Hours:{{ restaurant.rest_hours }}</p>		
 		</div>
 		
 		<div class="ui-block-b">

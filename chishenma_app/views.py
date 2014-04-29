@@ -98,13 +98,16 @@ def help_me_decide(request):
 	return render(request, 'chishenma/help_me_decide.html')
 
 def your_restaurants(request):
-
+	return render_to_response('your_restaurants.html',
+							 {'restaurants': Restaurants.objects.all() })
 # def your_restaurants(request, rest_id):
-	rests = Restaurant.objects.filter(rest_id=rest_id)
-	return render(request, 'chishenma/your_restaurants.html', {'rests':rests})
+	# rests = Restaurant.objects.filter(rest_id=rest_id)
+	# return render(request, 'chishenma/your_restaurants.html', {'rests':rests})
 	# return HttpResponse("These restaurants may interest you.")
 
 # Can change to "(request, rest_name_en)" for specific URLs
-def restaurant_details(request, rest_id):
+def restaurant_details(request, rest_id=1):
 	# Add "% rest_name_en" at the end to have that as part of the URL:
-	return HttpResponse("Here are the deets for restaurant %s!" % rest_id) 
+	# return HttpResponse("Here are the deets for restaurant %s!" % rest_id) 
+	return render_to_response('restaurant_details.html',
+							 {'restaurant': Restaurant.objects.get(id=rest_id) })
