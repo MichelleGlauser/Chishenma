@@ -2,6 +2,23 @@
 
 {% block title %}{% endblock %}
 {% block content %}
+<p id="demo">Click the button to get your coordinates:</p>
+<button onclick="getLocation()">Try It</button>
+<div data-role="header"> 
+  <h1>Please choose a restaurant.</h1>
+</div>
+<div data-role="content" class="ui-bar-c ui-corner-all ui-shadow" style="padding:1em;">
+    <p class="show-page-loading-msg"></p>
+    <div class="choice_list">
+      {% if restaurants %}  
+        <ul data-role="listview" data-inset="true" >
+          {% for rest in restaurants %}
+            <li><a href="/restaurant_details/{{ rest.id }}/">{{ rest.name }}</a>a></li>
+          {% endfor %}
+        </ul> 
+      {% endif %}
+    </div>
+</div>
 <script>
     $(document).on("click", ".show-page-loading-msg", function() {          
         $.mobile.loading('show');
@@ -16,23 +33,22 @@
       $.mobile.loader.prototype.options.html = "<span class='ui-bar ui-overlay-c ui-corner-all'><img src='{{ STATIC_URL }}images/loading.png' /><h2>Firing up our decision-o-matic engine, please hold . . .</h2></span>";
     });
 </script>
-<div data-role="header"> 
-  <h1>Please choose a restaurant.</h1>
-</div>
-<div data-role="content" class="ui-bar-c ui-corner-all ui-shadow" style="padding:1em;">
-    <p class="show-page-loading-msg"></p>
-    <div class="choice_list">
-      {% if rests %}  
-                <ul data-role="listview" data-inset="true" >
-                    {% for rest in rests %}
-                      <li><a href="/restaurant_details/{{ rest.id }}/">{{ rest.name }}</a>a></li>
+<script>
+var x=document.getElementById("demo");
+function getLocation()
+  {
+  if (navigator.geolocation)
+    {
+    navigator.geolocation.getCurrentPosition(showPosition);
+    }
+  else{x.innerHTML="Geolocation is not supported by this browser.";}
+  }
+function showPosition(position)
+  {
+  x.innerHTML="Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;  
+  }
+</script>
 
-                    {% endfor %}
-                </ul> 
-            {% endif %}
-    </div>
-</div>
-
-<!-- <li><a href="{% url 'restaurant_details' r.id%}" data-transition="slidedown"> <img src={{ r.picture.url }}/> <h2>{{ r.name }}</h2> <p class="classement {{r.get_votes_display}}">{{r.votes}} stars  </p></a></li> -->
 
 {% endblock %}

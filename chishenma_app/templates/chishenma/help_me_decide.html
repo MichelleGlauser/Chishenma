@@ -2,13 +2,32 @@
 
 {% block title %}{% endblock %}
 {% block content %}
+<p id="demo">Click the button to get your coordinates:</p>
+<button onclick="getLocation()">Try It</button>
+
 
 <p class="message">Swipe right for yes and left for no.</p>
 <div class="slider slick-loading">
 </div>
 <div class="results">
 </div>
-            
+        
+<script>
+var x=document.getElementById("demo");
+function getLocation()
+  {
+  if (navigator.geolocation)
+    {
+    navigator.geolocation.getCurrentPosition(showPosition);
+    }
+  else{x.innerHTML="Geolocation is not supported by this browser.";}
+  }
+function showPosition(position)
+  {
+  x.innerHTML="Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;    
+  }
+</script>    
 <script>
 $( document ).ready(function() {
 (function () {
