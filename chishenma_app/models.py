@@ -37,8 +37,8 @@ class Restaurant(models.Model):
     rest_other_branches = models.CharField(max_length=400, blank=True) # How will this work?
     rest_img = models.ImageField(upload_to='images/', null=True, blank=True)
     rest_desc = models.CharField(max_length=100)
-    rest_dianping_id = models.IntegerField(blank=True)
-    rest_position = GeopositionField() 
+    rest_dianping_id = models.IntegerField(null=True, blank=True)
+    rest_position = GeopositionField(null=True) 
     # rest_latlong = models.CharField(max_length=100, blank=True) # Store them together in a charfield, in the order google maps likes. split apart if needed, but how?
     rest_address = models.CharField(max_length=100)
     rest_district = models.CharField(max_length=50)
