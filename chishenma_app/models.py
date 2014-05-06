@@ -18,7 +18,7 @@ class Category(models.Model):
 class Dish(models.Model):
     dish_name_en = models.CharField(max_length=30)
     dish_name_cn = models.CharField(max_length=30, blank=True)
-    dish_img = models.ImageField(upload_to='images/', null=True)
+    dish_img = models.ImageField(upload_to='images/', null=True, blank=True)
     dish_cuisine = models.CharField(max_length=30)
     dish_course = models.CharField(max_length=30, blank=True)
     dish_price = models.IntegerField(blank=True)
@@ -35,7 +35,7 @@ class Restaurant(models.Model):
     rest_name_cn = models.CharField(max_length=50, blank=True)
     rest_branch = models.CharField(max_length=50, blank=True)
     rest_other_branches = models.CharField(max_length=400, blank=True) # How will this work?
-    rest_img = models.ImageField(upload_to='images/', null=True)
+    rest_img = models.ImageField(upload_to='images/', null=True, blank=True)
     rest_desc = models.CharField(max_length=100)
     rest_dianping_id = models.IntegerField(blank=True)
     rest_position = GeopositionField() 
@@ -101,7 +101,7 @@ class Bookmark(models.Model):
     bookmark_rest_id = models.IntegerField()
     bookmark_tags = models.CharField(max_length=100)
     bookmark_notes = models.CharField(max_length=200)
-    bookmark_img = models.ImageField(upload_to='user/images/', null=True)
+    bookmark_img = models.ImageField(upload_to='user/images/', null=True, blank=True)
 
     bookmarker = models.ForeignKey(User)
 
