@@ -35,8 +35,6 @@ class MyUserAdmin(UserAdmin):
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
 
-admin.site.register(Foodie,MyUserAdmin)
-
 # These two classes for adding dishes while editing menus are not working yet.
 # Apparently inline doesn't work with ManyToManyFields, see here: http://stackoverflow.com/questions/5345673/django-no-foreignkey-but-its-a-manytomanyfield
 # class DishInline(admin.TabularInline):
@@ -55,7 +53,7 @@ admin.site.register(Foodie,MyUserAdmin)
 # 	search_fields = ['review_text']
 
 # Keep these at the bottom:
-admin.site.register(Foodie)
+admin.site.register(Foodie,MyUserAdmin)
 admin.site.register(Category)
 admin.site.register(Dish)
 # admin.site.register(Menu, MenuAdmin)
