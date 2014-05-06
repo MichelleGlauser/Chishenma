@@ -32,4 +32,5 @@ class MyUserCreationForm(UserCreationForm):
 class MyUserAdmin(UserAdmin):
     add_form = MyUserCreationForm
 
+admin.site.unregister(auth.models.User)
 admin.site.register(Foodie,MyUserAdmin)
