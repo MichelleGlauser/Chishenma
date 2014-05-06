@@ -26,7 +26,14 @@ class MyUserCreationForm(UserCreationForm):
         model = Foodie
 
 class MyUserAdmin(UserAdmin):  
-    add_form = MyUserCreationForm   
+    add_form = MyUserCreationForm
+    fieldsets = (
+        (None, {'fields': ('username', 'password')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name', 'email')}),
+        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
+                                       'groups', 'user_permissions')}),
+        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+    )
 
 admin.site.register(Foodie,MyUserAdmin)
 
