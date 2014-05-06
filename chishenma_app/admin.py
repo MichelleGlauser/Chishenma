@@ -1,6 +1,7 @@
 # coding=utf-8
 from __future__ import unicode_literals
 from django.contrib import admin
+from django.contrib.auth.forms import (UserCreationForm, UserChangeForm, AdminPasswordChangeForm)
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
 from chishenma_app.models import Category, Dish, Menu, Review, Restaurant, Bookmark, Foodie
@@ -28,12 +29,22 @@ class MyUserCreationForm(UserCreationForm):
 class MyUserAdmin(UserAdmin):  
     add_form = MyUserCreationForm
     fieldsets = (
-        (None, {'fields': ('username', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name', 'email')}),
-        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
-                                       'groups', 'user_permissions')}),
-        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+        (None, {'fields': ('user_city', 'password', 'user_waitlist_status',
+        		'user_waitlist_num', 'user_num_referrals')}),
     )
+    add_fieldsets = (
+        (None, {
+  
+        }),
+    )
+    form = UserChangeForm
+    add_form = MyUserCreationForm
+    change_password_form = AdminPasswordChangeForm
+    list_display = ('user_wechat', 'user_city', 'user_waitlist_status', 'user_waitlist_num', 'user_num_referrals')
+    list_filter = ()
+    search_fields = ('user_wechat', 'user_city', 'user_waitlist_status', 'user_waitlist_num', 'user_num_referrals')
+    ordering = ('user_wechat',)
+    filter_horizontal = ()
 
 # These two classes for adding dishes while editing menus are not working yet.
 # Apparently inline doesn't work with ManyToManyFields, see here: http://stackoverflow.com/questions/5345673/django-no-foreignkey-but-its-a-manytomanyfield
