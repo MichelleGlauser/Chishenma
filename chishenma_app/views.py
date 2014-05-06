@@ -82,7 +82,8 @@ def logout(request):
 	auth.logout(requets)
 	return render(request, 'chishenma/logout.html')
 
-
+def register(request):
+	return render(request, 'registration/register.html')
 
 
 
@@ -98,8 +99,8 @@ def help_me_decide(request):
 	return render(request, 'chishenma/help_me_decide.html')
 
 def your_restaurants(request):
-	return render_to_response('your_restaurants.html',
-							 {'restaurants': Restaurants.objects.all() })
+	return render_to_response('chishenma/your_restaurants.html',
+							 {'restaurants': Restaurant.objects.all() })
 # def your_restaurants(request, rest_id):
 	# rests = Restaurant.objects.filter(rest_id=rest_id)
 	# return render(request, 'chishenma/your_restaurants.html', {'rests':rests})
@@ -109,5 +110,5 @@ def your_restaurants(request):
 def restaurant_details(request, rest_id=1):
 	# Add "% rest_name_en" at the end to have that as part of the URL:
 	# return HttpResponse("Here are the deets for restaurant %s!" % rest_id) 
-	return render_to_response('restaurant_details.html',
+	return render_to_response('chishenma/restaurant_details.html',
 							 {'restaurant': Restaurant.objects.get(id=rest_id) })

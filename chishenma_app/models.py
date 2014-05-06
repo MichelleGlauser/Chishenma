@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.admin import UserAdmin
+from geoposition.fields import GeopositionField
 
 class Category(models.Model):
     category_label = models.CharField(max_length=200)
@@ -37,7 +38,8 @@ class Restaurant(models.Model):
     rest_img = models.ImageField(upload_to='images/', null=True)
     rest_desc = models.CharField(max_length=100)
     rest_dianping_id = models.IntegerField(blank=True)
-    rest_latlong = models.CharField(max_length=100, blank=True) # Store them together in a charfield, in the order google maps likes. split apart if needed, but how?
+    rest_position = GeopositionField() 
+    # rest_latlong = models.CharField(max_length=100, blank=True) # Store them together in a charfield, in the order google maps likes. split apart if needed, but how?
     rest_address = models.CharField(max_length=100)
     rest_district = models.CharField(max_length=50)
     rest_city = models.CharField(max_length=50)

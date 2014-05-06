@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),
     url(r'^loggedin/$', 'chishenma_app.views.loggedin'),
     url(r'^invalid/$', 'chishenma_app.views.invalid_login'),
+    url(r'^register/$', 'chishenma_app.views.register'),
     # url(r'^waitinglist/', include('waitinglist.urls')),
 
     # page urls
