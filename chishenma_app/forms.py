@@ -1,6 +1,8 @@
 from chishenma_app.models import Foodie
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from django import forms
+from django.contrib.auth import forms
 
 class UserForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput())
@@ -25,9 +27,9 @@ class MyUserCreationForm(UserCreationForm):
             return usernameraise forms.ValidationError(self.error_messages['duplicate_username'])
 
     class Meta(UserCreationForm.Meta):
-            model = User
+            model = Foodie
 
 class MyUserAdmin(UserAdmin):
     add_form = MyUserCreationForm
 
-admin.site.register(User,MyUserAdmin)
+admin.site.register(Foodie,MyUserAdmin)
