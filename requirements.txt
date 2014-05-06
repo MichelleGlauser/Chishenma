@@ -15,7 +15,6 @@ gunicorn==18.0
 jmespath==0.4.0
 MySQL-python==1.2.5
 Pillow==2.4.0
-postgresql==9.2.4
 psycopg2==2.5.2
 pyasn1==0.1.7
 pystache==0.5.3
