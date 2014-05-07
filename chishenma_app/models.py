@@ -85,6 +85,7 @@ class Foodie(models.Model):
     user_waitlist_num = models.IntegerField(blank=True)
     user_num_referrals = models.IntegerField(blank=True)
 
+    USERNAME_FIELD = 'user_wechat'
 #     user_friend_wechat_ids = models.ForeignKey('Foodie') # Do we need a friend table for this?
 
 #     # def get_absolute_url(self): # What does this do?
