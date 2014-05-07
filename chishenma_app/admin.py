@@ -16,11 +16,11 @@ class MyUserCreationForm(UserCreationForm):
     def clean_username(self):
         # Since User.username is unique, this check is redundant,
         # but it sets a nicer error message than the ORM. See #13147.
-        username = self.cleaned_data["username"]
+        user_wechat = self.cleaned_data["user_wechat"]
         try:
-            User._default_manager.get(username=username)
+            User._default_manager.get(user_wechat=userwechat)
         except User.DoesNotExist:
-            return username
+            return user_wechat
         raise forms.ValidationError(self.error_messages['duplicate_username'])
 
     class Meta(UserCreationForm.Meta):
