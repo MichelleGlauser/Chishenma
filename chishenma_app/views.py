@@ -79,7 +79,7 @@ def invalid_login(request):
 	return render(request, 'chishenma/invalid_login.html')
 
 def logout(request):
-	auth.logout(requets)
+	auth.logout(request)
 	return render(request, 'chishenma/logout.html')
 
 def register(request):
