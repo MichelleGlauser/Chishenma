@@ -39,7 +39,7 @@ def login(request):
 		context['error'] = ''
 
     	populateContext(request, context)
-    	return render(request, 'chishenma/index.html', context)
+    	return render(request, 'registration/index.html', context)
 
 def logout(request):
 	context = {}
@@ -67,20 +67,20 @@ def auth_view(request):
 	if user is not None:
 		if user.is_active:
 			login(request, user)
-			return HttpResponseRedirect('chishenma/loggedin/')
+			return HttpResponseRedirect('registration/loggedin/')
 	else:
-		return HttpResponseRedirect('chishenma/invalid_login/')
+		return HttpResponseRedirect('registration/invalid_login/')
 
 def loggedin(request):
-	return render(request, 'chishenma/loggedin.html',
+	return render(request, 'registration/loggedin.html',
 	{'full_name': request.user.username})
 
 def invalid_login(request):
-	return render(request, 'chishenma/invalid_login.html')
+	return render(request, 'registration/invalid_login.html')
 
 def logout(request):
 	auth.logout(request)
-	return render(request, 'chishenma/logout.html')
+	return render(request, 'registration/logout.html')
 
 def register(request):
 	return render(request, 'registration/register.html')
