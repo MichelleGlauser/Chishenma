@@ -49,8 +49,8 @@ class Migration(SchemaMigration):
             ('rest_other_branches', self.gf('django.db.models.fields.CharField')(max_length=400, blank=True)),
             ('rest_img', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
             ('rest_desc', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('rest_dianping_id', self.gf('django.db.models.fields.IntegerField')(blank=True)),
-            ('rest_position', self.gf('geoposition.fields.GeopositionField')(default='0,0', max_length=42)),
+            ('rest_dianping_id', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('rest_position', self.gf('geoposition.fields.GeopositionField')(default='0,0', max_length=42, null=True)),
             ('rest_address', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('rest_district', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('rest_city', self.gf('django.db.models.fields.CharField')(max_length=50)),
@@ -219,7 +219,7 @@ class Migration(SchemaMigration):
             'rest_branch': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             'rest_city': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'rest_desc': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'rest_dianping_id': ('django.db.models.fields.IntegerField', [], {'blank': 'True'}),
+            'rest_dianping_id': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'rest_dishes': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['chishenma_app.Dish']", 'null': 'True', 'blank': 'True'}),
             'rest_district': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'rest_hours': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
@@ -230,7 +230,7 @@ class Migration(SchemaMigration):
             'rest_name_en': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'rest_other_branches': ('django.db.models.fields.CharField', [], {'max_length': '400', 'blank': 'True'}),
             'rest_phone': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'rest_position': ('geoposition.fields.GeopositionField', [], {'default': "'0,0'", 'max_length': '42'}),
+            'rest_position': ('geoposition.fields.GeopositionField', [], {'default': "'0,0'", 'max_length': '42', 'null': 'True'}),
             'rest_url': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'})
         },
         u'chishenma_app.review': {

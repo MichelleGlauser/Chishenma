@@ -8,23 +8,130 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Deleting field 'Restaurant.rest_latlong'
-        db.delete_column(u'chishenma_app_restaurant', 'rest_latlong')
+        # Adding model 'Category'
+        db.create_table(u'chishenma_app_category', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('category_label', self.gf('django.db.models.fields.CharField')(max_length=200)),
+            ('category_img', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
+            ('category_tag', self.gf('django.db.models.fields.CharField')(max_length=200, blank=True)),
+        ))
+        db.send_create_signal(u'chishenma_app', ['Category'])
 
-        # Adding field 'Restaurant.rest_position'
-        db.add_column(u'chishenma_app_restaurant', 'rest_position',
-                      self.gf('geoposition.fields.GeopositionField')(default='0,0', max_length=42),
-                      keep_default=False)
+        # Adding model 'Dish'
+        db.create_table(u'chishenma_app_dish', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('dish_name_en', self.gf('django.db.models.fields.CharField')(max_length=30)),
+            ('dish_name_cn', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
+            ('dish_img', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
+            ('dish_cuisine', self.gf('django.db.models.fields.CharField')(max_length=30)),
+            ('dish_course', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
+            ('dish_price', self.gf('django.db.models.fields.IntegerField')(blank=True)),
+            ('dish_last_reviewed', self.gf('django.db.models.fields.DateTimeField')(blank=True)),
+            ('dish_similar', self.gf('django.db.models.fields.CharField')(max_length=30, blank=True)),
+        ))
+        db.send_create_signal(u'chishenma_app', ['Dish'])
+
+        # Adding M2M table for field menu on 'Dish'
+        m2m_table_name = db.shorten_name(u'chishenma_app_dish_menu')
+        db.create_table(m2m_table_name, (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('dish', models.ForeignKey(orm[u'chishenma_app.dish'], null=False)),
+            ('menu', models.ForeignKey(orm[u'chishenma_app.menu'], null=False))
+        ))
+        db.create_unique(m2m_table_name, ['dish_id', 'menu_id'])
+
+        # Adding model 'Restaurant'
+        db.create_table(u'chishenma_app_restaurant', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('rest_name_en', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('rest_name_cn', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
+            ('rest_branch', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
+            ('rest_other_branches', self.gf('django.db.models.fields.CharField')(max_length=400, blank=True)),
+            ('rest_img', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
+            ('rest_desc', self.gf('django.db.models.fields.CharField')(max_length=100)),
+            ('rest_dianping_id', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('rest_position', self.gf('geoposition.fields.GeopositionField')(default='0,0', max_length=42, null=True)),
+            ('rest_address', self.gf('django.db.models.fields.CharField')(max_length=100)),
+            ('rest_district', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('rest_city', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('rest_phone', self.gf('django.db.models.fields.CharField')(max_length=30)),
+            ('rest_hours', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
+            ('rest_url', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
+            ('rest_map_url', self.gf('django.db.models.fields.CharField')(max_length=200, blank=True)),
+            ('category', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['chishenma_app.Category'])),
+            ('rest_dishes', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['chishenma_app.Dish'], null=True, blank=True)),
+            ('bookmarked_by', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True)),
+            ('rest_menu', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['chishenma_app.Menu'], null=True, blank=True)),
+        ))
+        db.send_create_signal(u'chishenma_app', ['Restaurant'])
+
+        # Adding model 'Menu'
+        db.create_table(u'chishenma_app_menu', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('menu_price', self.gf('django.db.models.fields.IntegerField')()),
+            ('menu_num_people', self.gf('django.db.models.fields.IntegerField')()),
+            ('menu_tags', self.gf('django.db.models.fields.CharField')(max_length=200)),
+            ('menu_date', self.gf('django.db.models.fields.DateTimeField')()),
+        ))
+        db.send_create_signal(u'chishenma_app', ['Menu'])
+
+        # Adding model 'Review'
+        db.create_table(u'chishenma_app_review', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('review_text', self.gf('django.db.models.fields.CharField')(max_length=400)),
+            ('review_date', self.gf('django.db.models.fields.DateTimeField')()),
+            ('restaurant', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['chishenma_app.Restaurant'])),
+            ('reviewer', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+        ))
+        db.send_create_signal(u'chishenma_app', ['Review'])
+
+        # Adding model 'Foodie'
+        db.create_table(u'chishenma_app_foodie', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('user_wechat', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
+            ('user_city', self.gf('django.db.models.fields.CharField')(max_length=25)),
+            ('user_waitlist_status', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('user_waitlist_num', self.gf('django.db.models.fields.IntegerField')(blank=True)),
+            ('user_num_referrals', self.gf('django.db.models.fields.IntegerField')(blank=True)),
+        ))
+        db.send_create_signal(u'chishenma_app', ['Foodie'])
+
+        # Adding model 'Bookmark'
+        db.create_table(u'chishenma_app_bookmark', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('bookmark_rest_id', self.gf('django.db.models.fields.IntegerField')()),
+            ('bookmark_tags', self.gf('django.db.models.fields.CharField')(max_length=100)),
+            ('bookmark_notes', self.gf('django.db.models.fields.CharField')(max_length=200)),
+            ('bookmark_img', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
+            ('bookmarker', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+        ))
+        db.send_create_signal(u'chishenma_app', ['Bookmark'])
 
 
     def backwards(self, orm):
-        # Adding field 'Restaurant.rest_latlong'
-        db.add_column(u'chishenma_app_restaurant', 'rest_latlong',
-                      self.gf('django.db.models.fields.CharField')(default='', max_length=100, blank=True),
-                      keep_default=False)
+        # Deleting model 'Category'
+        db.delete_table(u'chishenma_app_category')
 
-        # Deleting field 'Restaurant.rest_position'
-        db.delete_column(u'chishenma_app_restaurant', 'rest_position')
+        # Deleting model 'Dish'
+        db.delete_table(u'chishenma_app_dish')
+
+        # Removing M2M table for field menu on 'Dish'
+        db.delete_table(db.shorten_name(u'chishenma_app_dish_menu'))
+
+        # Deleting model 'Restaurant'
+        db.delete_table(u'chishenma_app_restaurant')
+
+        # Deleting model 'Menu'
+        db.delete_table(u'chishenma_app_menu')
+
+        # Deleting model 'Review'
+        db.delete_table(u'chishenma_app_review')
+
+        # Deleting model 'Foodie'
+        db.delete_table(u'chishenma_app_foodie')
+
+        # Deleting model 'Bookmark'
+        db.delete_table(u'chishenma_app_bookmark')
 
 
     models = {
@@ -59,7 +166,7 @@ class Migration(SchemaMigration):
         },
         u'chishenma_app.bookmark': {
             'Meta': {'object_name': 'Bookmark'},
-            'bookmark_img': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True'}),
+            'bookmark_img': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'bookmark_notes': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'bookmark_rest_id': ('django.db.models.fields.IntegerField', [], {}),
             'bookmark_tags': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
@@ -77,7 +184,7 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Dish'},
             'dish_course': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'dish_cuisine': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'dish_img': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True'}),
+            'dish_img': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'dish_last_reviewed': ('django.db.models.fields.DateTimeField', [], {'blank': 'True'}),
             'dish_name_cn': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'dish_name_en': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
@@ -112,18 +219,18 @@ class Migration(SchemaMigration):
             'rest_branch': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             'rest_city': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'rest_desc': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'rest_dianping_id': ('django.db.models.fields.IntegerField', [], {'blank': 'True'}),
+            'rest_dianping_id': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'rest_dishes': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['chishenma_app.Dish']", 'null': 'True', 'blank': 'True'}),
             'rest_district': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'rest_hours': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'rest_img': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True'}),
+            'rest_img': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'rest_map_url': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
             'rest_menu': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['chishenma_app.Menu']", 'null': 'True', 'blank': 'True'}),
             'rest_name_cn': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             'rest_name_en': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'rest_other_branches': ('django.db.models.fields.CharField', [], {'max_length': '400', 'blank': 'True'}),
             'rest_phone': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'rest_position': ('geoposition.fields.GeopositionField', [], {'default': "'0,0'", 'max_length': '42'}),
+            'rest_position': ('geoposition.fields.GeopositionField', [], {'default': "'0,0'", 'max_length': '42', 'null': 'True'}),
             'rest_url': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'})
         },
         u'chishenma_app.review': {
