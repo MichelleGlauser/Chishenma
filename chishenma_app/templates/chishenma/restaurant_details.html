@@ -52,20 +52,7 @@
 		<a href="tel:{{ restaurant.rest_phone }}"  data-role="button" data-icon="tel"> Call us </a>	
 	</div>	
 	<hr/>
-	
-	<div id="notation">	
-        <form action="{% url 'restaurants:vote' restaurant.id %}" method="post">
-        {% csrf_token %}
-	    <label for="select-choice-0" class="select"><h2> User rating </h2></label>
-		<select name="note_utilisateur" onchange="this.form.submit()" id="note_utilisateur" data-native-menu="false" data-theme="c" >
-           <option>Choose your vote</option>
-		   <option value="1" class="one"> Not good at all </option>
-		   <option value="2" class="two">Average </option>
-		   <option value="3" class="three">Pretty good </option>
-		   <option value="4" class="four"> Excellent </option>
-		</select>	
-	</form>
-	</div>
+
 
 
 	<script type="text/javascript">
