@@ -5,6 +5,7 @@ from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm
 from django.core.context_processors import csrf
 from django.template import RequestContext, loader
 from django.views.generic import TemplateView
@@ -21,6 +22,37 @@ def index(request):
 	context = {'form':form}
 	populateContext(request, context)
 	return render(request, 'chishenma/index.html', context)
+
+def register(request):
+	form = UserCreationForm()
+	if request.method == 'POST':
+		form = UserCreationForm(request.POST)
+	if form.is_valid():
+		new_user = form.save()
+		return HttpResponseRedirect("/books/")
+	else:
+		form = UserCreationForm()
+	return render(request, "registration/register.html", {
+		'form': form,
+	})
+	# context = {}
+	# try:
+	# 	username = request.GET['username']
+	# 	password = request.GET['password']
+	# 	user = authenticate(username=username, password=password)
+	# 	if user is not None:
+	# 		if user.is_active:
+	# 			auth_login(request, user)
+	# 		else:
+	# 			context['error'] = 'Non active user'
+	# 	else:
+	# 		context['error'] = 'Wrong username or password'
+	# except:
+	# 	context['error'] = ''
+
+ #    	populateContext(request, context)
+ #    	return render(request, 'registration/index.html', context)
+	# return render(request, 'registration/register.html')
 
 def login(request):
 	context = {}
@@ -81,9 +113,6 @@ def invalid_login(request):
 def logout(request):
 	auth.logout(request)
 	return render(request, 'registration/logout.html')
-
-def register(request):
-	return render(request, 'registration/register.html')
 
 
 
