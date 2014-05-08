@@ -29,7 +29,7 @@ def register(request):
 		form = UserCreationForm(request.POST)
 	if form.is_valid():
 		new_user = form.save()
-		return HttpResponseRedirect("/books/")
+		return HttpResponseRedirect("chishenma/index.html")
 	else:
 		form = UserCreationForm()
 	return render(request, "registration/register.html", {
@@ -71,7 +71,7 @@ def login(request):
 		context['error'] = ''
 
     	populateContext(request, context)
-    	return render(request, 'registration/index.html', context)
+    	return render(request, 'chishenma/index.html', context)
 
 def logout(request):
 	context = {}
@@ -81,7 +81,7 @@ def logout(request):
 		context['error'] = 'Some error occured.'
 
 	populateContext(request, context)
-	return render(request, 'index.html', context)
+	return render(request, 'chishenma/index.html', context)
 
 def populateContext(request, context):
 	context['authenticated'] = request.user.is_authenticated()
