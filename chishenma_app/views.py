@@ -20,7 +20,6 @@ def index(request):
 	else:
 		form = None
 	context = {'form':form}
-	populateContext(request, context)
 	return render(request, 'chishenma/index.html', context)
 
 def register(request):
@@ -50,7 +49,7 @@ def register(request):
 	# except:
 	# 	context['error'] = ''
 
- #    	populateContext(request, context)
+
  #    	return render(request, 'registration/index.html', context)
 	# return render(request, 'registration/register.html')
 
@@ -70,7 +69,6 @@ def login(request):
 	except:
 		context['error'] = ''
 
-    	populateContext(request, context)
     	return render(request, 'chishenma/index.html', context)
 
 def logout(request):
@@ -80,14 +78,7 @@ def logout(request):
 	except:
 		context['error'] = 'Some error occured.'
 
-	populateContext(request, context)
 	return render(request, 'chishenma/index.html', context)
-
-def populateContext(request, context):
-	context['authenticated'] = request.user.is_authenticated()
-	if context['authenticated'] == True:
-		context['username'] = request.user.username
-
 
 def auth_view(request):
 	# wechat = request.POST.get('wechat_id', '')
