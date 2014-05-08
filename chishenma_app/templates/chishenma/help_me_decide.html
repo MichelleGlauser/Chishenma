@@ -33,7 +33,7 @@ $( document ).ready(function() {
 (function () {
     var noList = [];
     var yesList = [];
-    var images = ['<img src="{{ STATIC_URL }}images/indian.jpg" alt="" title=""/>', '<img src="{{ STATIC_URL }}images/hamburger.jpg" alt="" title="hamburger"/>', '<img src="{{ STATIC_URL }}images/italian-pizza.jpg" alt="" title="pizza"/>', '<img src="{{ STATIC_URL }}images/hummus.jpg" alt="" title="hummus"/>', '<img src="{{ STATIC_URL }}images/pie.jpg" alt="" title="pie"/>', '<img src="{{ STATIC_URL }}images/montecristo.jpg" alt="" title="montecristo"/>', '<img src="{{ STATIC_URL }}images/eclairs.jpg" alt="" title="eclairs"/>'];     
+    var images = ['<img src="{% static 'images/indian.jpg' %}" alt="" title=""/>', '<img src="{% static 'images/hamburger.jpg' %}" alt="" title="hamburger"/>', '<img src="{% static 'images/italian-pizza.jpg' %}" alt="" title="pizza"/>', '<img src="{% static 'images/hummus.jpg' %}" alt="" title="hummus"/>', '<img src="{% static 'images/pie.jpg' %}" alt="" title="pie"/>', '<img src="{% static 'images/montecristo.jpg' %}" alt="" title="montecristo"/>', '<img src="{% static 'images/eclairs.jpg' %}" alt="" title="eclairs"/>'];     
     
     var input = 'this is a series of words that you choose to like or dislike'.split(' '); // test
     

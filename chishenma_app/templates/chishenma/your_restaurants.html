@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
 {% block title %}{% endblock %}
 {% block content %}
 <p id="demo">Click the button to get your coordinates:</p>
@@ -30,7 +30,7 @@
       $.mobile.loader.prototype.options.textVisible = true;
       $.mobile.loader.prototype.options.theme = "a";
       $.mobile.loader.prototype.options.textonly = false;
-      $.mobile.loader.prototype.options.html = "<span class='ui-bar ui-overlay-c ui-corner-all'><img src='{{ STATIC_URL }}images/loading.png' /><h2>Firing up our decision-o-matic engine, please hold . . .</h2></span>";
+      $.mobile.loader.prototype.options.html = "<span class='ui-bar ui-overlay-c ui-corner-all'><img src='{% static 'images/loading.png' %}' /><h2>Firing up our decision-o-matic engine, please hold . . .</h2></span>";
     });
 </script>
 <script>
