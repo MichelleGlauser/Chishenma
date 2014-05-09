@@ -1,14 +1,18 @@
 # coding=utf-8
 from __future__ import unicode_literals
 # from django.http import Http404 Need to make a 404.html, raise on notexist
-from django.shortcuts import render, render_to_response, get_object_or_404
+from django.shortcuts import render, render_to_response, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
 from django.core.context_processors import csrf
+from django.core.urlresolvers import reverse
+from django.db.transaction import atomic
 from django.template import RequestContext, loader
 from django.views.generic import TemplateView
+from chishenma_app.forms import UserCityForm
+from chishenma_app.models import Foodie
 # from django.contrib.auth.models import User, Permission
 
 from chishenma_app.models import Category, Dish, Menu, Review, Restaurant, Bookmark, User
@@ -22,18 +26,26 @@ def index(request):
 	context = {'form':form}
 	return render(request, 'chishenma/index.html', context)
 
+@atomic
 def register(request):
-	form = UserCreationForm()
+	user_form = UserCreationForm()
+	city_form = UserCityForm()
+
 	if request.method == 'POST':
-		form = UserCreationForm(request.POST)
-	if form.is_valid():
-		new_user = form.save()
-		return HttpResponseRedirect("/login.html")
-	else:
-		form = UserCreationForm()
+		user_form = UserCreationForm(request.POST)
+		city_form = UserCityForm(request.POST)
+
+	if user_form.is_valid() and city_form.is_valid():
+		new_user = user_form.save()
+		Foodie.objects.create(user_wechat=new_user, user_city=city_form['user_city'].value())
+
+		return redirect(reverse('home'))
+
 	return render(request, "registration/register.html", {
-		'form': form,
+		'user_form': user_form,
+		'city_form': city_form,
 	})
+
 	# context = {}
 	# try:
 	# 	username = request.GET['username']
@@ -69,7 +81,7 @@ def login(request):
 	except:
 		context['error'] = ''
 
-    	return render(request, 'chishenma/index.html', context)
+	return render(request, 'chishenma/index.html', context)
 
 def logout(request):
 	context = {}
