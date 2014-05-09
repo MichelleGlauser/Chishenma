@@ -18,9 +18,9 @@ from django import forms
 # 		fields = ('user_wechat', 'user_city')
 
 class UserCityForm(forms.Form):
-    user_city = forms.CharField(max_length=25, required=True)
+    city = forms.CharField(max_length=25, required=True)
     fields = ('user_city,')
 
 class WaitlistForm(forms.Form):
-	user_email = forms.EmailField(max_length=35)
+	email = forms.EmailField(max_length=35)
 	fields = ('user_email,')
