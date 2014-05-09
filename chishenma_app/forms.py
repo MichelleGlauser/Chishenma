@@ -21,6 +21,6 @@ class UserCityForm(forms.Form):
     city = forms.CharField(max_length=25, required=True)
     fields = ('user_city,')
 
-# class WaitlistForm(forms.Form):
-# 	email = forms.EmailField(max_length=35)
-# 	fields = ('user_email,')
+class WaitlistForm(forms.Form):
+	email = forms.EmailField(max_length=35)
+	fields = ('user_email,')

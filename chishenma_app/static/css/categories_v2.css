@@ -1,0 +1,264 @@
+.img_categories {
+margin: 0px 0px 0px 0px;
+width: 100%;
+height: auto;
+display: block;
+}
+
+.a_categories {
+margin: 0px 0px 0px 0px;
+padding: 0px 0px 0px 0px;
+border: 0px;
+}
+
+.div_category { 
+   position: relative; 
+   width: 100%; /* for IE 6 */
+   border-width:0px;
+}
+
+.category_name { 
+   position: absolute; 
+   top: 20%; 
+   width: 100%; 
+font-family: 'Roboto', 'sans-serif';
+font-weight:300;
+text-shadow: 1px 1px #000000;
+line-height:170%;
+   text-align:center;	
+}
+
+.restaurant_title { 
+   position: absolute; 
+   bottom: 15%; 
+   width: 100%; 
+font-family: 'Roboto', 'sans-serif';
+font-weight:300;
+text-shadow: 1px 1px #000000;
+line-height:170%;
+   text-align:left;	
+}
+
+h2 span { 
+   color: white; 
+   text-align:center;
+   font-size:2em;   
+}
+
+.category_count { 
+   position: absolute; 
+   bottom: 20%;
+   width: 100%; 
+font-family: 'Roboto', 'sans-serif';
+font-weight:400;
+text-align:center;
+line-height:170%;
+}
+
+.restaurant_district { 
+   position: absolute; 
+   top: 5%; 
+   right:0%;
+font-family: 'Roboto', 'sans-serif';
+font-weight:300;
+text-align:right;
+line-height:170%;
+}
+
+h3 span { 
+   font-size:0.7em;
+   color: black; 
+   background: rgb(255,255,255); /* fallback color */
+   background: rgba(255,255,255, 0.8);
+   padding: 3px; 
+}
+
+.restaurant_name { 
+   position: absolute; 
+   bottom: 4%; 
+   width: 100%; 
+font-family: 'Roboto', 'sans-serif';
+font-weight:700;
+text-shadow: 1px 1px #000000;
+line-height:170%;
+   text-align:left;
+}
+
+h4 span { 
+   color: white; 
+   text-align:center;
+   font-size:0.8em;
+}
+
+
+/*-------------- TEST RESPONSIVE UI --------------*/
+/* Basic styles */
+.cat-grid-responsive .ui-body {
+    text-align: left;
+    border: 0px;
+}
+/* Stack all blocks to start */
+.cat-grid-responsive .ui-block-a,
+.cat-grid-responsive .ui-block-b,
+.cat-grid-responsive .ui-block-c,
+.cat-grid-responsive .ui-block-d,
+.cat-grid-responsive .ui-block-e,
+.cat-grid-responsive .ui-block-f,
+.cat-grid-responsive .ui-block-g,
+.cat-grid-responsive .ui-block-h,
+.cat-grid-responsive .ui-block-i,
+.cat-grid-responsive .ui-block-j,
+.cat-grid-responsive .ui-block-k,
+.cat-grid-responsive .ui-block-l,
+.cat-grid-responsive .ui-block-m,
+.cat-grid-responsive .ui-block-n,
+.cat-grid-responsive .ui-block-o,
+.cat-grid-responsive .ui-block-p,
+.cat-grid-responsive .ui-block-q,
+.cat-grid-responsive .ui-block-r,
+.cat-grid-responsive .ui-block-s,
+.cat-grid-responsive .ui-block-t
+ {
+    width: 49.95%;
+    float: left;
+}
+/* Collapsing borders */
+.cat-grid-responsive > div + div .ui-body {
+    border-top-width: 0px;
+}
+/* 1st breakpoint - 3 in a row*/
+@media all and (min-width: 35em) {
+
+/* Use this or a "clearfix" to give the container height */
+/*    .cat-grid-responsive {
+        overflow: hidden; 
+    }*/
+
+    .cat-grid-responsive .ui-body {
+       min-height: 14em;
+    }
+    .cat-grid-responsive .ui-block-a,
+    .cat-grid-responsive .ui-block-b,
+    .cat-grid-responsive .ui-block-c,
+    .cat-grid-responsive .ui-block-d,
+    .cat-grid-responsive .ui-block-e,
+    .cat-grid-responsive .ui-block-f,
+    .cat-grid-responsive .ui-block-g,
+    .cat-grid-responsive .ui-block-h,
+    .cat-grid-responsive .ui-block-i,
+    .cat-grid-responsive .ui-block-j,
+    .cat-grid-responsive .ui-block-k,
+    .cat-grid-responsive .ui-block-l,
+    .cat-grid-responsive .ui-block-m,
+    .cat-grid-responsive .ui-block-n,
+    .cat-grid-responsive .ui-block-o,
+    .cat-grid-responsive .ui-block-p,
+    .cat-grid-responsive .ui-block-q,
+    .cat-grid-responsive .ui-block-r,
+    .cat-grid-responsive .ui-block-s,
+    .cat-grid-responsive .ui-block-t {
+      float: left;
+      width: 33.3%;
+    }
+    .cat-grid-responsive > div + div .ui-body {
+        border-top-width: 0px;
+    }
+    .cat-grid-responsive > div:first-child .ui-body {
+        border-bottom-width: 0;
+    }
+    .cat-grid-responsive > div:last-child .ui-body {
+        border-left-width: 0;
+    }
+}
+/* 2nd breakpoint - 4 in a row */
+@media all and (min-width: 48em) {
+    .cat-grid-responsive .ui-body {
+       min-height: 18em;
+    }
+    .cat-grid-responsive .ui-block-a,
+    .cat-grid-responsive .ui-block-b,
+    .cat-grid-responsive .ui-block-c,
+    .cat-grid-responsive .ui-block-d,
+    .cat-grid-responsive .ui-block-e,
+    .cat-grid-responsive .ui-block-f,
+    .cat-grid-responsive .ui-block-g,
+    .cat-grid-responsive .ui-block-h,
+    .cat-grid-responsive .ui-block-i,
+    .cat-grid-responsive .ui-block-j,
+    .cat-grid-responsive .ui-block-k,
+    .cat-grid-responsive .ui-block-l,
+    .cat-grid-responsive .ui-block-m,
+    .cat-grid-responsive .ui-block-n,
+    .cat-grid-responsive .ui-block-o,
+    .cat-grid-responsive .ui-block-p,
+    .cat-grid-responsive .ui-block-q,
+    .cat-grid-responsive .ui-block-r,
+    .cat-grid-responsive .ui-block-s,
+    .cat-grid-responsive .ui-block-t {
+      float: left;
+      width: 24.95%;
+    }
+    .cat-grid-responsive > div:first-child .ui-body {
+        border-bottom-width: 1px;
+    }
+    .cat-grid-responsive > div + div .ui-body {
+        border-left-width: 0;
+    }
+}
+/* 3rd breakpoint - 5 in a row */
+@media all and (min-width: 60em) {
+    .cat-grid-responsive .ui-body {
+      font-size: 125%;
+    }
+    .cat-grid-responsive .ui-block-a,
+    .cat-grid-responsive .ui-block-b,
+    .cat-grid-responsive .ui-block-c,
+    .cat-grid-responsive .ui-block-d,
+    .cat-grid-responsive .ui-block-e,
+    .cat-grid-responsive .ui-block-f,
+    .cat-grid-responsive .ui-block-g,
+    .cat-grid-responsive .ui-block-h,
+    .cat-grid-responsive .ui-block-i,
+    .cat-grid-responsive .ui-block-j,
+    .cat-grid-responsive .ui-block-k,
+    .cat-grid-responsive .ui-block-l,
+    .cat-grid-responsive .ui-block-m,
+    .cat-grid-responsive .ui-block-n,
+    .cat-grid-responsive .ui-block-o,
+    .cat-grid-responsive .ui-block-p,
+    .cat-grid-responsive .ui-block-q,
+    .cat-grid-responsive .ui-block-r,
+    .cat-grid-responsive .ui-block-s,
+    .cat-grid-responsive .ui-block-t {
+      float: left;
+      width: 19.95%;
+    }
+}
+
+#custom-fieldset .ui-controlgroup,fieldset.ui-controlgroup {
+    margin:0px;
+}
+
+#custom-fieldset .ui-controlgroup-controls {
+    width: 100%;
+    display:block;
+}
+
+#custom-fieldset .ui-controlgroup-controls .ui-select {
+    width: 50%;
+    display:block;
+}
+
+/*------------OWL SLIDER-------------*/
+#owl-demo .item img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.rest_deets_p {
+	   font-size:0.7em;
+	   color: #444444; 
+	   font-family: 'Roboto', 'sans-serif';
+	   font-weight:300;
+}

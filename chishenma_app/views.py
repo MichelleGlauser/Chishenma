@@ -11,7 +11,7 @@ from django.core.urlresolvers import reverse
 from django.db.transaction import atomic
 from django.template import RequestContext, loader
 from django.views.generic import TemplateView
-from chishenma_app.forms import UserCityForm
+from chishenma_app.forms import UserCityForm, WaitlistForm
 from chishenma_app.models import Foodie
 # from django.contrib.auth.models import User, Permission
 
@@ -30,15 +30,14 @@ def index(request):
 def register(request):
 	user_form = UserCreationForm()
 	city_form = UserCityForm()
-	# waitlist_form = WaitlistForm()
+	waitlist_form = WaitlistForm()
 
 	if request.method == 'POST':
 		user_form = UserCreationForm(request.POST)
 		city_form = UserCityForm(request.POST)
-		# waitlist_form = WaitlistForm(request.POST)
+		waitlist_form = WaitlistForm(request.POST)
 
-	# For django-bouncer, add "and waitlist_form.is_valid()":
-	if user_form.is_valid() and city_form.is_valid():
+	if user_form.is_valid() and city_form.is_valid() and waitlist_form.is_valid():
 		new_user = user_form.save()
 		Foodie.objects.create(user_wechat=new_user, user_city=city_form['user_city'].value())
 
