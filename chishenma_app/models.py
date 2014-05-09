@@ -87,7 +87,7 @@ class Foodie(models.Model):
     user_email = models.EmailField()
 
     USERNAME_FIELD = 'user_wechat'
-#     user_friend_wechat_ids = models.ForeignKey('Foodie') # Do we need a friend table for this?
+    # user_friend_wechat_ids = models.ForeignKey('self', null=True, blank=True) # Do we need a friend table for this?
 
 #     # def get_absolute_url(self): # What does this do?
 #  #        return "/users/%s/" % urlquote(self.user_wechat)
