@@ -46,25 +46,6 @@ def register(request):
 		'city_form': city_form,
 	})
 
-	# context = {}
-	# try:
-	# 	username = request.GET['username']
-	# 	password = request.GET['password']
-	# 	user = authenticate(username=username, password=password)
-	# 	if user is not None:
-	# 		if user.is_active:
-	# 			auth_login(request, user)
-	# 		else:
-	# 			context['error'] = 'Non active user'
-	# 	else:
-	# 		context['error'] = 'Wrong username or password'
-	# except:
-	# 	context['error'] = ''
-
-
- #    	return render(request, 'registration/index.html', context)
-	# return render(request, 'registration/register.html')
-
 def login(request):
 	context = {}
 	try:
@@ -131,8 +112,10 @@ def help_me_decide(request):
 	return render(request, 'chishenma/help_me_decide.html')
 
 def your_restaurants(request):
-	return render_to_response('chishenma/your_restaurants.html',
-							 {'restaurants': Restaurant.objects.all() })
+	context = {}
+	return render(request, 'chishenma/your_restaurants.html', context)
+	# return render_to_response('chishenma/your_restaurants.html',
+	# 						 {'restaurants': Restaurant.objects.all() })
 # def your_restaurants(request, rest_id):
 	# rests = Restaurant.objects.filter(rest_id=rest_id)
 	# return render(request, 'chishenma/your_restaurants.html', {'rests':rests})
@@ -140,7 +123,9 @@ def your_restaurants(request):
 
 # Can change to "(request, rest_name_en)" for specific URLs
 def restaurant_details(request, rest_id=1):
+	context = {}
 	# Add "% rest_name_en" at the end to have that as part of the URL:
 	# return HttpResponse("Here are the deets for restaurant %s!" % rest_id) 
-	return render_to_response('chishenma/restaurant_details.html',
-							 {'restaurant': Restaurant.objects.get(id=rest_id) })
+	return render(request, 'chishenma/restaurant_details.html', context)
+	# return render_to_response('chishenma/restaurant_details.html',
+	# 						 {'restaurant': Restaurant.objects.get(id=rest_id) })
