@@ -30,7 +30,7 @@ def index(request):
 def register(request):
 	user_form = UserCreationForm()
 	city_form = UserCityForm()
-	waitlist_form = WaitlistForm()
+	# waitlist_form = WaitlistForm()
 
 	if request.method == 'POST':
 		user_form = UserCreationForm(request.POST)
