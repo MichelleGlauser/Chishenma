@@ -84,6 +84,7 @@ class Foodie(models.Model):
     user_waitlist_status = models.BooleanField(default=False)
     user_waitlist_num = models.IntegerField(blank=True, default=0)
     user_num_referrals = models.IntegerField(blank=True, default=0)
+    user_email = models.EmailField()
 
     USERNAME_FIELD = 'user_wechat'
 #     user_friend_wechat_ids = models.ForeignKey('Foodie') # Do we need a friend table for this?

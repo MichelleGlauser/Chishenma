@@ -30,12 +30,14 @@ def index(request):
 def register(request):
 	user_form = UserCreationForm()
 	city_form = UserCityForm()
+	waitlist_form = WaitlistForm()
 
 	if request.method == 'POST':
 		user_form = UserCreationForm(request.POST)
 		city_form = UserCityForm(request.POST)
+		waitlist_form = WaitlistForm(request.POST)
 
-	if user_form.is_valid() and city_form.is_valid():
+	if user_form.is_valid() and city_form.is_valid() and waitlist_form.is_valid():
 		new_user = user_form.save()
 		Foodie.objects.create(user_wechat=new_user, user_city=city_form['user_city'].value())
 
@@ -44,6 +46,7 @@ def register(request):
 	return render(request, "registration/register.html", {
 		'user_form': user_form,
 		'city_form': city_form,
+		'waitlist_form': waitlist_form,
 	})
 
 def login(request):
