@@ -11,7 +11,7 @@ from django.core.urlresolvers import reverse
 from django.db.transaction import atomic
 from django.template import RequestContext, loader
 from django.views.generic import TemplateView
-from chishenma_app.forms import UserCityForm, WaitlistForm
+from chishenma_app.forms import UserCityForm
 from chishenma_app.models import Foodie
 # from django.contrib.auth.models import User, Permission
 
