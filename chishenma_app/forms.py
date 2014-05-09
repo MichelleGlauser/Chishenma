@@ -15,3 +15,7 @@ class UserProfileForm(forms.ModelForm):
 	class Meta:
 		model = UserProfile
 		fields = ('user_wechat', 'user_city')
+
+class UserCityForm(forms.ModelForm):
+    user_city = forms.CharField()
+    fields = ('user_city')
