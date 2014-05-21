@@ -1,7 +1,11 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
 {% block content %}
+<div data-role="page" id="logout" data-theme="a">
 
+    <div data-role="header" data-position="fixed" style="background-color:#EEEEEE;" data-tap-toggle="false" data-add-back-btn="true">
+        <h1>Logged Out</h1>
+    </div><!-- /header -->
 <p>You have been logged out.  You may <a href="{% url 'login' %}">log back in</a>.</p>
 
 {% endblock %}

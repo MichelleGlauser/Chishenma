@@ -30,16 +30,18 @@ def index(request):
 def register(request):
 	user_form = UserCreationForm()
 	city_form = UserCityForm()
-	waitlist_form = WaitlistForm()
+	# waitlist_form = WaitlistForm()
 
 	if request.method == 'POST':
 		user_form = UserCreationForm(request.POST)
 		city_form = UserCityForm(request.POST)
-		waitlist_form = WaitlistForm(request.POST)
+		# waitlist_form = WaitlistForm(request.POST)
 
-	if user_form.is_valid() and city_form.is_valid() and waitlist_form.is_valid():
+	# add 'and waitlist_form.is_valid()'' for django-bouncer
+	if user_form.is_valid() and city_form.is_valid():
 		new_user = user_form.save()
 		Foodie.objects.create(user_wechat=new_user, user_city=city_form['user_city'].value())
+		# list_item, created = add_to_waitlist(form.cleaned_data['user_email'])
 
 		return redirect(reverse('home'))
 

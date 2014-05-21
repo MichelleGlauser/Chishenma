@@ -1,7 +1,16 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% load staticfiles %}
 
+{% block title %}{% endblock %}
+
+
+{% block content %}
+    <div data-role="page" id="invalid_login" data-theme="a">
+
+    <div data-role="header" data-position="fixed" style="background-color:#EEEEEE;" data-tap-toggle="false" data-add-back-btn="true">
+        <h1>Invalid Login</h1>
+    </div><!-- /header -->
 	<h2>Your login details are invalid!</h2>
 	<p>Click <a href="{% url 'login' %}">here</a> to log in again.</p>
 

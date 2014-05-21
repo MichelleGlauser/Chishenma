@@ -1,5 +1,10 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% block content %}
+<div data-role="page" id="login" data-theme="a">
+
+<div data-role="header" data-position="fixed" style="background-color:#EEEEEE;" data-tap-toggle="false" data-add-back-btn="true">
+</div><!-- /header -->
 <form method="POST">
     {{ form.username.errors }}
     <label for="username">Username:</label>

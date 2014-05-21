@@ -1,7 +1,11 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
 {% block content %}
+<div data-role="page" id="loggedin" data-theme="a">
 
+    <div data-role="header" data-position="fixed" style="background-color:#EEEEEE;" data-tap-toggle="false" data-add-back-btn="true">
+        <h1>Logged In</h1>
+    </div><!-- /header -->
 	<h2>Hi {{full_name}}, you are now logged in!</h2>h>
 	<p>Click <a href='?accounts/logout'?>here</a>to logout.</p>
 
