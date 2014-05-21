@@ -2,7 +2,67 @@
 {% load staticfiles %}
 {% block title %}{% endblock %}
 {% block content %}
-<p id="demo">Click the button to get your coordinates:</p>
+
+<!-- Start of restaurant list: #two -->
+  <div data-role="page" id="two" data-theme="a">
+
+  <!-- Header -->
+  <div data-role="header" data-position="fixed" style="background-color:#EEEEEE;" data-tap-toggle="false" data-add-back-btn="true">
+    <h1>Restaurant List</h1>
+
+      <fieldset data-role="controlgroup" data-type="horizontal" id="custom-fieldset">
+      <select name="filter-by" id="filter-by">
+        <option >Filter By:</option>
+        <option value="Price">Price</option>
+        <option value="Cuisine">Cuisine</option>
+        <option value="Other Stuff">Other Stuff</option>
+      </select>
+
+      <select name="sort-by" id="sort-by">
+              <option >Sort By:</option>
+        <option value="Distance">Distance</option>
+        <option value="Price">Price</option>
+        <option value="Other Stuff">Other Stuff</option>
+      </select>
+      </fieldset>
+  </div>
+
+  <div role="main" class="ui-content">
+
+    <div class="ui-grid-solo  ">
+      <div class="ui-block-a" style="margin:0.5em 0;"><a href="{% url 'restaurant_details' %}" data-transition="flow"><div class="ui-bar ui-bar-a" style="height:auto;padding:0px;">
+        <img class="img_categories" src="{% static 'images/restaurants/restaurant_martin.png' %}">
+        <h2 class="restaurant_title" style="margin:0px 10px;"><span style="font-size:1.5em;">Michelin 3-star Tapas</span></h2>
+        <h3 class="restaurant_district"><span>Xujiahui</span></h3>
+        <h4 class="restaurant_name" style="margin:0px 10px;"><span>RESTAURANT MARTIN</span></h4>
+      </div></a></div>
+      <div class="ui-block-a" style="margin:0.5em 0;"><a href="{% url 'restaurant_details' %}" data-transition="flow"><div class="ui-bar ui-bar-a" style="height:auto;padding:0px;">
+        <img class="img_categories" src="{% static 'images/restaurants/fu_1039.png' %}">
+        <h2 class="restaurant_title" style="margin:0px 10px;"><span style="font-size:1.5em;">Shanghai 1920s Style</span></h2>
+        <h3 class="restaurant_district"><span>Jingan</span></h3>
+        <h4 class="restaurant_name" style="margin:0px 10px;"><span>FU 1039</span></h4>
+      </div></a></div>
+      <div class="ui-block-a" style="margin:0.5em 0;"><a href="{% url 'restaurant_details' %}" data-transition="flow"><div class="ui-bar ui-bar-a" style="height:auto;padding:0px;">
+        <img class="img_categories" src="{% static 'images/restaurants/restaurant_martin.png' %}">
+        <h2 class="restaurant_title" style="margin:0px 10px;"><span style="font-size:1.5em;">Michelin 3-star Tapas</span></h2>
+        <h3 class="restaurant_district"><span>Xujiahui</span></h3>
+        <h4 class="restaurant_name" style="margin:0px 10px;"><span>RESTAURANT MARTIN</span></h4>
+      </div></a></div>
+      <div class="ui-block-a" style="margin:0.5em 0;"><a href="{% url 'restaurant_details' %}" data-transition="flow"><div class="ui-bar ui-bar-a" style="height:auto;padding:0px;">
+        <img class="img_categories" src="{% static 'images/restaurants/fu_1039.png' %}">
+        <h2 class="restaurant_title" style="margin:0px 10px;"><span style="font-size:1.5em;">Shanghai 1920s Style</span></h2>
+        <h3 class="restaurant_district"><span>Jingan</span></h3>
+        <h4 class="restaurant_name" style="margin:0px 10px;"><span>FU 1039</span></h4>
+      </div></a></div>
+    </div>
+
+  </div><!-- /content -->
+
+  </div>
+<!-- /restaurant list -->
+
+
+<!-- <p id="demo">Click the button to get your coordinates:</p>
 <button onclick="getLocation()">Try It</button>
 <div data-role="header"> 
   <h1>Please choose a restaurant.</h1>
@@ -18,7 +78,7 @@
         </ul> 
       {% endif %}
     </div>
-</div>
+</div> -->
 <script>
     $(document).on("click", ".show-page-loading-msg", function() {          
         $.mobile.loading('show');
@@ -49,6 +109,5 @@ function showPosition(position)
   "<br>Longitude: " + position.coords.longitude;  
   }
 </script>
-
 
 {% endblock %}

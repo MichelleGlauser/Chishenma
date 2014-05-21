@@ -1,20 +1,21 @@
 $(document).ready(function() {
  
-  $("#owl-demo").owlCarousel({
+  $("#owl-restaurant-interior").owlCarousel({
  
       navigation : false, // Show next and prev buttons
       pagination : false,
       slideSpeed : 300,
       paginationSpeed : 400,
       singleItem:true
+  });
+
+  $("#owl-decide-o-matic").owlCarousel({
  
-      // "singleItem:true" is a shortcut for:
-      // items : 1, 
-      // itemsDesktop : false,
-      // itemsDesktopSmall : false,
-      // itemsTablet: false,
-      // itemsMobile : false
- 
+      navigation : false, // Show next and prev buttons
+      pagination : false,
+      slideSpeed : 300,
+      paginationSpeed : 400,
+      singleItem:true
   });
  
 });

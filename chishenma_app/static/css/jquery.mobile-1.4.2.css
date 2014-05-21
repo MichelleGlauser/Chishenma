@@ -1368,7 +1368,7 @@ div.ui-mobile-viewport {
 	clip: rect(1px,1px,1px,1px);
 }
 /* Loading screen */
-/*.ui-loading .ui-loader {
+.ui-loading .ui-loader {
 	display: block;
 }
 .ui-loader {
@@ -1433,7 +1433,7 @@ div.ui-mobile-viewport {
 }
 .ui-loader-fakefix {
 	position: absolute;
-}*/
+}
 /* Headers, content panels */
 .ui-bar,
 .ui-body {
@@ -1537,7 +1537,7 @@ div.ui-mobile-viewport {
 .ui-header .ui-btn,
 .ui-footer .ui-btn {
 	font-size: 12.5px;
-	display: inline-block;
+/*	display: inline-block;*/
 	vertical-align: middle;
 }
 /* To ensure same top and left/right position when ui-btn-left/right are added to something other than buttons. */

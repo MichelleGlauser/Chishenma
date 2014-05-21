@@ -25,7 +25,7 @@ font-family: 'Roboto', 'sans-serif';
 font-weight:300;
 text-shadow: 1px 1px #000000;
 line-height:170%;
-   text-align:center;	
+   text-align:center; 
 }
 
 .restaurant_title { 
@@ -36,7 +36,7 @@ font-family: 'Roboto', 'sans-serif';
 font-weight:300;
 text-shadow: 1px 1px #000000;
 line-height:170%;
-   text-align:left;	
+   text-align:left; 
 }
 
 h2 span { 
@@ -250,15 +250,21 @@ h4 span {
 }
 
 /*------------OWL SLIDER-------------*/
-#owl-demo .item img{
+#owl-restaurant-interior .item img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+#owl-decide-o-matic .item img{
     display: block;
     width: 100%;
     height: auto;
 }
 
 .rest_deets_p {
-	   font-size:0.7em;
-	   color: #444444; 
-	   font-family: 'Roboto', 'sans-serif';
-	   font-weight:300;
+     font-size:0.7em;
+     color: #444444; 
+     font-family: 'Roboto', 'sans-serif';
+     font-weight:300;
 }

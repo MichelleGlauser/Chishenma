@@ -1,42 +1,41 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-
 {% block title %}{% endblock %}
 {% block content %}
-<p id="demo">Click the button to get your coordinates:</p>
-<button onclick="getLocation()">Try It</button>
 
+<!-- Start of decide-o-matic page: #four -->
 
-<p class="message">Swipe right for yes and left for no.</p>
-<div class="slider slick-loading">
-</div>
-<div class="results">
-</div>
-        
-<script>
-var x=document.getElementById("demo");
-function getLocation()
-  {
-  if (navigator.geolocation)
-    {
-    navigator.geolocation.getCurrentPosition(showPosition);
-    }
-  else{x.innerHTML="Geolocation is not supported by this browser.";}
-  }
-function showPosition(position)
-  {
-  x.innerHTML="Latitude: " + position.coords.latitude + 
-  "<br>Longitude: " + position.coords.longitude;    
-  }
-</script>    
+    <div data-role="popup" id="popupDecideOMatic" class="ui-content" data-theme="a" data-overlay-theme="b" style="max-width:300px;background-color:#FFFF99;">
+        <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+        <p>This is an early test of the <strong>Decide-O-Matic</strong>.  Swipe right if you like a picture and left if you don't.  After 10 swipes, we will match you with the perfect restaurant!</p>
+    </div>
+
+    <div data-role="page" id="four" data-theme="a">
+
+    <div data-role="header" data-position="fixed" style="background-color:#EEEEEE;" data-tap-toggle="false" data-add-back-btn="true">
+        <h1>Decide-o-matic</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content" style="padding:0px;">
+    <div class="slider slick-loading">
+    </div>
+    <div class="results">
+    </div>
+<!--         <div id="owl-demo" class="owl-carousel owl-theme" style="display:block">
+          <div class="item"><img src="{% static 'images/decide-o-matic/happy_baby.png' %}"></div>
+          <div class="item"><img src="{% static 'images/decide-o-matic/candlelight.png' %}"></div>
+          <div class="item"><img src="{% static 'images/decide-o-matic/fast.png' %}"></div>
+        </div> -->
+
+    </div><!-- /content -->
+
+    </div>
 <script>
 $( document ).ready(function() {
 (function () {
     var noList = [];
     var yesList = [];
     var images = ['<img src="{% static 'images/indian.jpg' %}" alt="" title=""/>', '<img src="{% static 'images/hamburger.jpg' %}" alt="" title="hamburger"/>', '<img src="{% static 'images/italian-pizza.jpg' %}" alt="" title="pizza"/>', '<img src="{% static 'images/hummus.jpg' %}" alt="" title="hummus"/>', '<img src="{% static 'images/pie.jpg' %}" alt="" title="pie"/>', '<img src="{% static 'images/montecristo.jpg' %}" alt="" title="montecristo"/>', '<img src="{% static 'images/eclairs.jpg' %}" alt="" title="eclairs"/>'];     
-    
-    var input = 'this is a series of words that you choose to like or dislike'.split(' '); // test
     
 var carousel = $('.slider').slick({
     slidesToShow: 1,
@@ -112,5 +111,6 @@ var carousel = $('.slider').slick({
 }());
 });
 </script>
+<!-- /decide-o-matic page -->
 
 {% endblock %}

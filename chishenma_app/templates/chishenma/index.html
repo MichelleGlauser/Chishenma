@@ -6,40 +6,52 @@
 {% block content %}
 <!-- Can refer to this with "chishenma/index.html" -->
 
-<div data-role="page" id="home" data-theme="c">
+<div data-role="popup" id="popupWelcome" class="ui-content" data-theme="a" data-overlay-theme="b" style="max-width:300px;background-color:#FFFF99;">
+    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+    <p>Welcome, and thanks for testing <strong>ChiShenMa</strong>!  Please kindly excuse the mess, this is still a work in progress.  Feel free to play around and let us know your feedback!</p>
+</div>
+
+<div data-role="page" id="home">
+
+<!-- Header -->
+<div data-role="header" data-position="fixed" style="background-color:#EEEEEE;" data-tap-toggle="false">
+    <h1>ChiShenMa</h1>
+</div><!-- /header -->
+
     <div data-role="content">
-        <div id="branding">
-            <h1>Chi Shen Ma</h1>
-        </div>
 
         
-Welcome!
+        Welcome!
 
-{% if not authenticated %}
-<form method="POST" action="{% url 'login' %}">
-    {{ form.username.errors }}
-    <label for="username">WeChat User Name:</label>
-    {{ form.username }}
-    {{ form.password.errors }}
-    <label for="password">Password:</label>
-    {{ form.password }}
-    <input type="submit" value="Submit"/>
-    {% csrf_token %}
-</form>
-{% else %}
-<a href="{% url 'logout' %}">Logout</a>
-{% endif %}
+        {% if not authenticated %}
+        <form method="POST" action="{% url 'login' %}">
+            {{ form.username.errors }}
+            <label for="username">WeChat User Name:</label>
+            {{ form.username }}
+            {{ form.password.errors }}
+            <label for="password">Password:</label>
+            {{ form.password }}
+            <input type="submit" value="Submit"/>
+            {% csrf_token %}
+        </form>
+        {% else %}
+        <a href="{% url 'logout' %}">Logout</a>
+        {% endif %}
 
-<div id="user_area">
-    {% if user.is_authenticated %}
-<p>Hello, {{user.username}}!</p>
-    {% else %}
-  <p><a href="/login/">Log in</a></p>
-<p><a href="/register/">Sign up</p>
-    {% endif %}
-</div>
+        <div id="user_area">
+            {% if user.is_authenticated %}
+        <p>Hello, {{user.username}}!</p>
+            {% else %}
+          <p><a href="/login/">Log in</a></p>
+        <p><a href="/register/">Sign up</p>
+            {% endif %}
+        </div>
     
-        <div class="choice_list">
+    <!-- Footer -->
+    <div data-role="footer" data-theme="a" data-position="fixed" style="background-color:#EEEEEE;" data-tap-toggle="false"> 
+        <a href="{% url 'choose_category' %}" class="ui-btn ui-corner-all" style="background-color:#FFCC00; display:block; margin:5px;">Click here to find something to eat!</a>
+    </div><!-- /footer -->    
+        <!-- <div class="choice_list">
         <a href="{% url 'choose_category' %}" data-role="button"><h1>Click here to find something to eat!</h1></a>
         {% if category_list %}
             <ul data-role="listview" data-inset="true" >
@@ -48,7 +60,7 @@ Welcome!
                 {% endfor %}
             </ul>
         {% endif%}
-    </div>
+    </div> -->
     </div>
 
 </div><!-- /page -->
