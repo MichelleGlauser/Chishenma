@@ -1,4 +1,4 @@
-from django.db import models
+from django.contrib.gis.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -38,7 +38,7 @@ class Restaurant(models.Model):
     rest_img = models.ImageField(upload_to='images/', null=True, blank=True)
     rest_desc = models.CharField(max_length=100)
     rest_dianping_id = models.IntegerField(null=True, blank=True)
-    rest_position = GeopositionField(null=True) 
+    rest_position = models.PointField(null=True) 
     # rest_latlong = models.CharField(max_length=100, blank=True) # Store them together in a charfield, in the order google maps likes. split apart if needed, but how?
     rest_address = models.CharField(max_length=100)
     rest_district = models.CharField(max_length=50)
@@ -53,6 +53,7 @@ class Restaurant(models.Model):
     bookmarked_by = models.ForeignKey(User, null=True, blank=True) # Users who have bookmarked a restaurant
     rest_menu = models.ForeignKey('Menu', null=True, blank=True)
 
+    objects = models.GeoManager()
     def __unicode__(self):
         return self.rest_name_en
 

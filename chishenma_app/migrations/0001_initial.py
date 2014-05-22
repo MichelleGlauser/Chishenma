@@ -50,7 +50,7 @@ class Migration(SchemaMigration):
             ('rest_img', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
             ('rest_desc', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('rest_dianping_id', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
-            ('rest_position', self.gf('geoposition.fields.GeopositionField')(default='0,0', max_length=42, null=True)),
+            ('rest_position', self.gf('django.contrib.gis.db.models.fields.PointField')(null=True)),
             ('rest_address', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('rest_district', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('rest_city', self.gf('django.db.models.fields.CharField')(max_length=50)),
@@ -91,8 +91,9 @@ class Migration(SchemaMigration):
             ('user_wechat', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
             ('user_city', self.gf('django.db.models.fields.CharField')(max_length=25)),
             ('user_waitlist_status', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('user_waitlist_num', self.gf('django.db.models.fields.IntegerField')(blank=True)),
-            ('user_num_referrals', self.gf('django.db.models.fields.IntegerField')(blank=True)),
+            ('user_waitlist_num', self.gf('django.db.models.fields.IntegerField')(default=0, blank=True)),
+            ('user_num_referrals', self.gf('django.db.models.fields.IntegerField')(default=0, blank=True)),
+            ('user_email', self.gf('django.db.models.fields.EmailField')(max_length=75)),
         ))
         db.send_create_signal(u'chishenma_app', ['Foodie'])
 
@@ -197,8 +198,9 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Foodie'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'user_city': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
-            'user_num_referrals': ('django.db.models.fields.IntegerField', [], {'blank': 'True'}),
-            'user_waitlist_num': ('django.db.models.fields.IntegerField', [], {'blank': 'True'}),
+            'user_email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
+            'user_num_referrals': ('django.db.models.fields.IntegerField', [], {'default': '0', 'blank': 'True'}),
+            'user_waitlist_num': ('django.db.models.fields.IntegerField', [], {'default': '0', 'blank': 'True'}),
             'user_waitlist_status': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'user_wechat': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'})
         },
@@ -230,7 +232,7 @@ class Migration(SchemaMigration):
             'rest_name_en': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'rest_other_branches': ('django.db.models.fields.CharField', [], {'max_length': '400', 'blank': 'True'}),
             'rest_phone': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'rest_position': ('geoposition.fields.GeopositionField', [], {'default': "'0,0'", 'max_length': '42', 'null': 'True'}),
+            'rest_position': ('django.contrib.gis.db.models.fields.PointField', [], {'null': 'True'}),
             'rest_url': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'})
         },
         u'chishenma_app.review': {

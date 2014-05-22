@@ -70,8 +70,8 @@
 <div data-role="content" class="ui-bar-c ui-corner-all ui-shadow" style="padding:1em;">
     <p class="show-page-loading-msg"></p>
     <div class="choice_list">
-      {% if restaurants %}  
-        <ul data-role="listview" data-inset="true" >
+      {% if restaurants %}  ˛
+        <ul data-role="listview" data-inset="true" data-filter="true">
           {% for rest in restaurants %}
             <li><a href="/restaurant_details/{{ rest.id }}/">{{ rest.name }}</a>a></li>
           {% endfor %}
