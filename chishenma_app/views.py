@@ -11,7 +11,7 @@ from django.core.urlresolvers import reverse
 from django.db.transaction import atomic
 from django.template import RequestContext, loader
 from django.views.generic import TemplateView
-from chishenma_app.forms import UserCityForm, WaitlistForm
+from chishenma_app.forms import WaitlistForm, UserCityForm
 from chishenma_app.models import Foodie
 # from django.contrib.auth.models import User, Permission
 
@@ -19,12 +19,27 @@ from chishenma_app.models import Category, Dish, Menu, Review, Restaurant, Bookm
 
 
 def index(request):
-	if not request.user.is_authenticated():
-		form = AuthenticationForm(request)
-	else:
-		form = None
-	context = {'form':form}
-	return render(request, 'chishenma/index.html', context)
+	# for waiting list:
+	waitlist_form = WaitlistForm()
+	city_form = UserCityForm()
+	if request.method == 'POST':
+		waitlist_form = WaitlistForm(request.POST)
+		city_form = UserCityForm(request.POST)
+	if waitlist_form.is_valid() and city_form.is_valid():
+		list_item, created = add_to_waitlist(form.cleaned_data['user_email'])
+		return redirect(reverse('home'))
+	return render(request, "registration/waitlist.html", {
+		'waitlist_form': waitlist_form,
+		'city_form': city_form,
+	})
+
+	# for regular waiting list:
+	# if not request.user.is_authenticated():
+	# 	form = AuthenticationForm(request)
+	# else:
+	# 	form = None
+	# context = {'form':form}
+	# return render(request, 'chishenma/index.html', context)
 
 @atomic
 def register(request):
@@ -37,7 +52,7 @@ def register(request):
 		city_form = UserCityForm(request.POST)
 		# waitlist_form = WaitlistForm(request.POST)
 
-	# add 'and waitlist_form.is_valid()'' for django-bouncer
+	# add 'and waitlist_form.is_valid()' for django-bouncer
 	if user_form.is_valid() and city_form.is_valid():
 		new_user = user_form.save()
 		Foodie.objects.create(user_wechat=new_user, user_city=city_form['user_city'].value())

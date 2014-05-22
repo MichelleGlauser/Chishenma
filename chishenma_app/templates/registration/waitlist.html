@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Waiting list{% endblock %}
+
+{% block content %}
+<div data-role="page" id="register" data-theme="a">
+
+    <div data-role="header" data-position="fixed" style="background-color:#EEEEEE;" data-tap-toggle="false" data-add-back-btn="true">
+        <h1>Waiting list</h1>
+    </div><!-- /header -->
+  <h1>Sign up here for our waiting list</h1>
+
+  <form action="" method="post">
+    {{ waitlist_form.as_p }}
+    {{ city_form.as_p }}
+    <input type="submit" value="Join the waiting list"/>
+    {% csrf_token %}
+  </form>
+{% endblock %}

@@ -17,10 +17,10 @@ from django import forms
 # 		model = UserProfile
 # 		fields = ('user_wechat', 'user_city')
 
-class UserCityForm(forms.Form):
-    city = forms.CharField(max_length=25, required=True)
-    fields = ('user_city,')
-
 class WaitlistForm(forms.Form):
 	email = forms.EmailField(max_length=35)
 	fields = ('user_email,')
+
+class UserCityForm(forms.Form):
+    city = forms.CharField(max_length=25, required=True)
+    fields = ('user_city,')
