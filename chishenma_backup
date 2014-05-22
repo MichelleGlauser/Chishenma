@@ -1,0 +1,1674 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO michelleglauser;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: michelleglauser
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_id_seq OWNER TO michelleglauser;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: michelleglauser
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO michelleglauser;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: michelleglauser
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_group_permissions_id_seq OWNER TO michelleglauser;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: michelleglauser
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO michelleglauser;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: michelleglauser
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_permission_id_seq OWNER TO michelleglauser;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: michelleglauser
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE TABLE auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone NOT NULL,
+    is_superuser boolean NOT NULL,
+    username character varying(30) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(30) NOT NULL,
+    email character varying(75) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO michelleglauser;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE TABLE auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO michelleglauser;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: michelleglauser
+--
+
+CREATE SEQUENCE auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_groups_id_seq OWNER TO michelleglauser;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: michelleglauser
+--
+
+ALTER SEQUENCE auth_user_groups_id_seq OWNED BY auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: michelleglauser
+--
+
+CREATE SEQUENCE auth_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_id_seq OWNER TO michelleglauser;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: michelleglauser
+--
+
+ALTER SEQUENCE auth_user_id_seq OWNED BY auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE TABLE auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO michelleglauser;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: michelleglauser
+--
+
+CREATE SEQUENCE auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO michelleglauser;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: michelleglauser
+--
+
+ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permissions.id;
+
+
+--
+-- Name: chishenma_app_bookmark; Type: TABLE; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE TABLE chishenma_app_bookmark (
+    id integer NOT NULL,
+    bookmark_rest_id integer NOT NULL,
+    bookmark_tags character varying(100) NOT NULL,
+    bookmark_notes character varying(200) NOT NULL,
+    bookmark_img character varying(100),
+    bookmarker_id integer NOT NULL
+);
+
+
+ALTER TABLE public.chishenma_app_bookmark OWNER TO michelleglauser;
+
+--
+-- Name: chishenma_app_bookmark_id_seq; Type: SEQUENCE; Schema: public; Owner: michelleglauser
+--
+
+CREATE SEQUENCE chishenma_app_bookmark_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.chishenma_app_bookmark_id_seq OWNER TO michelleglauser;
+
+--
+-- Name: chishenma_app_bookmark_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: michelleglauser
+--
+
+ALTER SEQUENCE chishenma_app_bookmark_id_seq OWNED BY chishenma_app_bookmark.id;
+
+
+--
+-- Name: chishenma_app_category; Type: TABLE; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE TABLE chishenma_app_category (
+    id integer NOT NULL,
+    category_label character varying(200) NOT NULL,
+    category_img character varying(100),
+    category_tag character varying(200) NOT NULL
+);
+
+
+ALTER TABLE public.chishenma_app_category OWNER TO michelleglauser;
+
+--
+-- Name: chishenma_app_category_id_seq; Type: SEQUENCE; Schema: public; Owner: michelleglauser
+--
+
+CREATE SEQUENCE chishenma_app_category_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.chishenma_app_category_id_seq OWNER TO michelleglauser;
+
+--
+-- Name: chishenma_app_category_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: michelleglauser
+--
+
+ALTER SEQUENCE chishenma_app_category_id_seq OWNED BY chishenma_app_category.id;
+
+
+--
+-- Name: chishenma_app_dish; Type: TABLE; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE TABLE chishenma_app_dish (
+    id integer NOT NULL,
+    dish_name_en character varying(30) NOT NULL,
+    dish_name_cn character varying(30) NOT NULL,
+    dish_img character varying(100),
+    dish_cuisine character varying(30) NOT NULL,
+    dish_course character varying(30) NOT NULL,
+    dish_price integer NOT NULL,
+    dish_last_reviewed timestamp with time zone NOT NULL,
+    dish_similar character varying(30) NOT NULL
+);
+
+
+ALTER TABLE public.chishenma_app_dish OWNER TO michelleglauser;
+
+--
+-- Name: chishenma_app_dish_id_seq; Type: SEQUENCE; Schema: public; Owner: michelleglauser
+--
+
+CREATE SEQUENCE chishenma_app_dish_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.chishenma_app_dish_id_seq OWNER TO michelleglauser;
+
+--
+-- Name: chishenma_app_dish_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: michelleglauser
+--
+
+ALTER SEQUENCE chishenma_app_dish_id_seq OWNED BY chishenma_app_dish.id;
+
+
+--
+-- Name: chishenma_app_dish_menu; Type: TABLE; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE TABLE chishenma_app_dish_menu (
+    id integer NOT NULL,
+    dish_id integer NOT NULL,
+    menu_id integer NOT NULL
+);
+
+
+ALTER TABLE public.chishenma_app_dish_menu OWNER TO michelleglauser;
+
+--
+-- Name: chishenma_app_dish_menu_id_seq; Type: SEQUENCE; Schema: public; Owner: michelleglauser
+--
+
+CREATE SEQUENCE chishenma_app_dish_menu_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.chishenma_app_dish_menu_id_seq OWNER TO michelleglauser;
+
+--
+-- Name: chishenma_app_dish_menu_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: michelleglauser
+--
+
+ALTER SEQUENCE chishenma_app_dish_menu_id_seq OWNED BY chishenma_app_dish_menu.id;
+
+
+--
+-- Name: chishenma_app_foodie; Type: TABLE; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE TABLE chishenma_app_foodie (
+    id integer NOT NULL,
+    user_wechat_id integer NOT NULL,
+    user_city character varying(25) NOT NULL,
+    user_waitlist_status boolean NOT NULL,
+    user_waitlist_num integer NOT NULL,
+    user_num_referrals integer NOT NULL
+);
+
+
+ALTER TABLE public.chishenma_app_foodie OWNER TO michelleglauser;
+
+--
+-- Name: chishenma_app_foodie_id_seq; Type: SEQUENCE; Schema: public; Owner: michelleglauser
+--
+
+CREATE SEQUENCE chishenma_app_foodie_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.chishenma_app_foodie_id_seq OWNER TO michelleglauser;
+
+--
+-- Name: chishenma_app_foodie_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: michelleglauser
+--
+
+ALTER SEQUENCE chishenma_app_foodie_id_seq OWNED BY chishenma_app_foodie.id;
+
+
+--
+-- Name: chishenma_app_menu; Type: TABLE; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE TABLE chishenma_app_menu (
+    id integer NOT NULL,
+    menu_price integer NOT NULL,
+    menu_num_people integer NOT NULL,
+    menu_tags character varying(200) NOT NULL,
+    menu_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.chishenma_app_menu OWNER TO michelleglauser;
+
+--
+-- Name: chishenma_app_menu_id_seq; Type: SEQUENCE; Schema: public; Owner: michelleglauser
+--
+
+CREATE SEQUENCE chishenma_app_menu_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.chishenma_app_menu_id_seq OWNER TO michelleglauser;
+
+--
+-- Name: chishenma_app_menu_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: michelleglauser
+--
+
+ALTER SEQUENCE chishenma_app_menu_id_seq OWNED BY chishenma_app_menu.id;
+
+
+--
+-- Name: chishenma_app_restaurant; Type: TABLE; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE TABLE chishenma_app_restaurant (
+    id integer NOT NULL,
+    rest_name_en character varying(50) NOT NULL,
+    rest_name_cn character varying(50) NOT NULL,
+    rest_branch character varying(50) NOT NULL,
+    rest_other_branches character varying(400) NOT NULL,
+    rest_img character varying(100),
+    rest_desc character varying(100) NOT NULL,
+    rest_dianping_id integer,
+    rest_position character varying(42),
+    rest_address character varying(100) NOT NULL,
+    rest_district character varying(50) NOT NULL,
+    rest_city character varying(50) NOT NULL,
+    rest_phone character varying(30) NOT NULL,
+    rest_hours character varying(100) NOT NULL,
+    rest_url character varying(100) NOT NULL,
+    rest_map_url character varying(200) NOT NULL,
+    category_id integer NOT NULL,
+    rest_dishes_id integer,
+    bookmarked_by_id integer,
+    rest_menu_id integer
+);
+
+
+ALTER TABLE public.chishenma_app_restaurant OWNER TO michelleglauser;
+
+--
+-- Name: chishenma_app_restaurant_id_seq; Type: SEQUENCE; Schema: public; Owner: michelleglauser
+--
+
+CREATE SEQUENCE chishenma_app_restaurant_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.chishenma_app_restaurant_id_seq OWNER TO michelleglauser;
+
+--
+-- Name: chishenma_app_restaurant_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: michelleglauser
+--
+
+ALTER SEQUENCE chishenma_app_restaurant_id_seq OWNED BY chishenma_app_restaurant.id;
+
+
+--
+-- Name: chishenma_app_review; Type: TABLE; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE TABLE chishenma_app_review (
+    id integer NOT NULL,
+    review_text character varying(400) NOT NULL,
+    review_date timestamp with time zone NOT NULL,
+    restaurant_id integer NOT NULL,
+    reviewer_id integer NOT NULL
+);
+
+
+ALTER TABLE public.chishenma_app_review OWNER TO michelleglauser;
+
+--
+-- Name: chishenma_app_review_id_seq; Type: SEQUENCE; Schema: public; Owner: michelleglauser
+--
+
+CREATE SEQUENCE chishenma_app_review_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.chishenma_app_review_id_seq OWNER TO michelleglauser;
+
+--
+-- Name: chishenma_app_review_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: michelleglauser
+--
+
+ALTER SEQUENCE chishenma_app_review_id_seq OWNED BY chishenma_app_review.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE TABLE django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    user_id integer NOT NULL,
+    content_type_id integer,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO michelleglauser;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: michelleglauser
+--
+
+CREATE SEQUENCE django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_admin_log_id_seq OWNER TO michelleglauser;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: michelleglauser
+--
+
+ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO michelleglauser;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: michelleglauser
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.django_content_type_id_seq OWNER TO michelleglauser;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: michelleglauser
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE TABLE django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO michelleglauser;
+
+--
+-- Name: south_migrationhistory; Type: TABLE; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE TABLE south_migrationhistory (
+    id integer NOT NULL,
+    app_name character varying(255) NOT NULL,
+    migration character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.south_migrationhistory OWNER TO michelleglauser;
+
+--
+-- Name: south_migrationhistory_id_seq; Type: SEQUENCE; Schema: public; Owner: michelleglauser
+--
+
+CREATE SEQUENCE south_migrationhistory_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.south_migrationhistory_id_seq OWNER TO michelleglauser;
+
+--
+-- Name: south_migrationhistory_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: michelleglauser
+--
+
+ALTER SEQUENCE south_migrationhistory_id_seq OWNED BY south_migrationhistory.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY chishenma_app_bookmark ALTER COLUMN id SET DEFAULT nextval('chishenma_app_bookmark_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY chishenma_app_category ALTER COLUMN id SET DEFAULT nextval('chishenma_app_category_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY chishenma_app_dish ALTER COLUMN id SET DEFAULT nextval('chishenma_app_dish_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY chishenma_app_dish_menu ALTER COLUMN id SET DEFAULT nextval('chishenma_app_dish_menu_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY chishenma_app_foodie ALTER COLUMN id SET DEFAULT nextval('chishenma_app_foodie_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY chishenma_app_menu ALTER COLUMN id SET DEFAULT nextval('chishenma_app_menu_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY chishenma_app_restaurant ALTER COLUMN id SET DEFAULT nextval('chishenma_app_restaurant_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY chishenma_app_review ALTER COLUMN id SET DEFAULT nextval('chishenma_app_review_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY south_migrationhistory ALTER COLUMN id SET DEFAULT nextval('south_migrationhistory_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: michelleglauser
+--
+
+COPY auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: michelleglauser
+--
+
+SELECT pg_catalog.setval('auth_group_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: michelleglauser
+--
+
+COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: michelleglauser
+--
+
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: michelleglauser
+--
+
+COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can add permission	2	add_permission
+5	Can change permission	2	change_permission
+6	Can delete permission	2	delete_permission
+7	Can add group	3	add_group
+8	Can change group	3	change_group
+9	Can delete group	3	delete_group
+10	Can add user	4	add_user
+11	Can change user	4	change_user
+12	Can delete user	4	delete_user
+13	Can add content type	5	add_contenttype
+14	Can change content type	5	change_contenttype
+15	Can delete content type	5	delete_contenttype
+16	Can add session	6	add_session
+17	Can change session	6	change_session
+18	Can delete session	6	delete_session
+19	Can add migration history	7	add_migrationhistory
+20	Can change migration history	7	change_migrationhistory
+21	Can delete migration history	7	delete_migrationhistory
+22	Can add category	8	add_category
+23	Can change category	8	change_category
+24	Can delete category	8	delete_category
+25	Can add dish	9	add_dish
+26	Can change dish	9	change_dish
+27	Can delete dish	9	delete_dish
+28	Can add restaurant	10	add_restaurant
+29	Can change restaurant	10	change_restaurant
+30	Can delete restaurant	10	delete_restaurant
+31	Can add menu	11	add_menu
+32	Can change menu	11	change_menu
+33	Can delete menu	11	delete_menu
+34	Can add review	12	add_review
+35	Can change review	12	change_review
+36	Can delete review	12	delete_review
+37	Can add foodie	13	add_foodie
+38	Can change foodie	13	change_foodie
+39	Can delete foodie	13	delete_foodie
+40	Can add bookmark	14	add_bookmark
+41	Can change bookmark	14	change_bookmark
+42	Can delete bookmark	14	delete_bookmark
+\.
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: michelleglauser
+--
+
+SELECT pg_catalog.setval('auth_permission_id_seq', 42, true);
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: michelleglauser
+--
+
+COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+2	pbkdf2_sha256$12000$Mb3okHrBZviu$yLSjkUEd4h69zyQk4yUynE27NOTEAMlpiE2wW4qHBEc=	2014-05-07 01:42:03-07	f	jenny				f	t	2014-05-07 01:42:03-07
+3	pbkdf2_sha256$12000$oB1zElXjzyfZ$mPZeukvqVyrOm3IKD8oisxUoyBwro5RPXa/xLm3EqCI=	2014-05-08 00:40:13.714211-07	f	jackie				f	t	2014-05-08 00:40:13.714272-07
+4	pbkdf2_sha256$12000$q3wh62CGSErn$Me8o3uhdPJW82wNDe+mC5oJf+XKEFUMXq8MDLQRKM+c=	2014-05-08 00:53:23.877049-07	f	blake				f	t	2014-05-08 00:53:23.877132-07
+5	pbkdf2_sha256$12000$K7SsP5HI9eas$Jfj1CHaZrrJ9YDgpBRfxsle9HtXOptbQukFGqUKQpY8=	2014-05-08 01:09:49.170384-07	f	michael				f	t	2014-05-08 01:09:49.170429-07
+6	pbkdf2_sha256$12000$pHoLqwq0POvh$w18WE/ii07MCO2W7bWTbD5mYje+ls5UzfDnaswFYydI=	2014-05-08 01:10:32.616664-07	f	michael1				f	t	2014-05-08 01:10:32.616729-07
+7	pbkdf2_sha256$12000$FMNNscjrWppV$5b/JAJcHtA092cdsAdFhDUrp94AEiyEIzo3Hyc67Pq8=	2014-05-08 01:12:09.678916-07	f	michael2				f	t	2014-05-08 01:12:09.679008-07
+8	pbkdf2_sha256$12000$E4CHxZ066rGK$O5KErdzGOFPem2uf+LoIneJ2FxyA9TjgkbcuC7CK9kM=	2014-05-08 01:26:47.806559-07	f	michael4				f	t	2014-05-08 01:26:47.806619-07
+9	pbkdf2_sha256$12000$uzyILoce9w0t$XeHek9+pqKG+S/QZ7c04x3itplDrQOZdRmvEt+8EQ5M=	2014-05-08 01:28:47.598777-07	f	michael5				f	t	2014-05-08 01:28:47.598816-07
+10	pbkdf2_sha256$12000$YYTfBUs43ngm$bqFKATz83LlvBW0BuglW9cEUdOFc8Bg8TjZSdR+JM44=	2014-05-08 06:45:15.832655-07	f	Michael6				f	t	2014-05-08 06:45:15.832696-07
+11	pbkdf2_sha256$12000$cfOMI5gSmDRo$d4rAI3LQXNWhvjq57dORLUVCjjd9jRR1ECwgcUBrMgY=	2014-05-08 07:00:22.863184-07	f	michael7				f	t	2014-05-08 07:00:22.863261-07
+12	pbkdf2_sha256$12000$ZviLkIOZXfza$LwC0BezQ//QXDPMLXCohWPct1dBJHchXU6G0U1FPR7g=	2014-05-08 07:42:39.503586-07	f	johnny1				f	t	2014-05-08 07:42:39.503627-07
+13	pbkdf2_sha256$12000$iJcRymhyK2Wh$C+A8Op+rCkTZqIP8AmDHXoq1SPBNphLFWrXGM9DIYD8=	2014-05-08 16:19:10.528069-07	f	johnny5				f	t	2014-05-08 16:19:10.528109-07
+14	pbkdf2_sha256$12000$e4ICnWWmX6Rs$aMYZ3lZ/bz0503hIrZUpYbkLDsVyF4HYnjsktfJpUvo=	2014-05-08 17:47:04.592736-07	f	johnny7				f	t	2014-05-08 17:47:04.592781-07
+16	pbkdf2_sha256$12000$RBFil0LP5qQh$IE0Q0/QxE6+fsYYlxUY4TQDGf3qGa2bVN4MtRoq3WHw=	2014-05-09 00:46:50.36404-07	f	johnny8				f	t	2014-05-09 00:46:50.364081-07
+1	pbkdf2_sha256$12000$I8y0NI8P4UHc$fR1CcoW1+cuenKL+79V6fJQs37Zjdi+gNUfunUNMDEc=	2014-05-21 04:54:37.894744-07	t	chishenma			michelleglauser@gmail.com	t	t	2014-05-06 19:46:12.090073-07
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: michelleglauser
+--
+
+COPY auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: michelleglauser
+--
+
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: michelleglauser
+--
+
+SELECT pg_catalog.setval('auth_user_id_seq', 17, true);
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: michelleglauser
+--
+
+COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: michelleglauser
+--
+
+SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: chishenma_app_bookmark; Type: TABLE DATA; Schema: public; Owner: michelleglauser
+--
+
+COPY chishenma_app_bookmark (id, bookmark_rest_id, bookmark_tags, bookmark_notes, bookmark_img, bookmarker_id) FROM stdin;
+\.
+
+
+--
+-- Name: chishenma_app_bookmark_id_seq; Type: SEQUENCE SET; Schema: public; Owner: michelleglauser
+--
+
+SELECT pg_catalog.setval('chishenma_app_bookmark_id_seq', 1, false);
+
+
+--
+-- Data for Name: chishenma_app_category; Type: TABLE DATA; Schema: public; Owner: michelleglauser
+--
+
+COPY chishenma_app_category (id, category_label, category_img, category_tag) FROM stdin;
+1	Indian		
+\.
+
+
+--
+-- Name: chishenma_app_category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: michelleglauser
+--
+
+SELECT pg_catalog.setval('chishenma_app_category_id_seq', 1, true);
+
+
+--
+-- Data for Name: chishenma_app_dish; Type: TABLE DATA; Schema: public; Owner: michelleglauser
+--
+
+COPY chishenma_app_dish (id, dish_name_en, dish_name_cn, dish_img, dish_cuisine, dish_course, dish_price, dish_last_reviewed, dish_similar) FROM stdin;
+\.
+
+
+--
+-- Name: chishenma_app_dish_id_seq; Type: SEQUENCE SET; Schema: public; Owner: michelleglauser
+--
+
+SELECT pg_catalog.setval('chishenma_app_dish_id_seq', 1, false);
+
+
+--
+-- Data for Name: chishenma_app_dish_menu; Type: TABLE DATA; Schema: public; Owner: michelleglauser
+--
+
+COPY chishenma_app_dish_menu (id, dish_id, menu_id) FROM stdin;
+\.
+
+
+--
+-- Name: chishenma_app_dish_menu_id_seq; Type: SEQUENCE SET; Schema: public; Owner: michelleglauser
+--
+
+SELECT pg_catalog.setval('chishenma_app_dish_menu_id_seq', 1, false);
+
+
+--
+-- Data for Name: chishenma_app_foodie; Type: TABLE DATA; Schema: public; Owner: michelleglauser
+--
+
+COPY chishenma_app_foodie (id, user_wechat_id, user_city, user_waitlist_status, user_waitlist_num, user_num_referrals) FROM stdin;
+1	14	Shanghai	f	0	0
+2	16	Shanghai	f	0	0
+\.
+
+
+--
+-- Name: chishenma_app_foodie_id_seq; Type: SEQUENCE SET; Schema: public; Owner: michelleglauser
+--
+
+SELECT pg_catalog.setval('chishenma_app_foodie_id_seq', 2, true);
+
+
+--
+-- Data for Name: chishenma_app_menu; Type: TABLE DATA; Schema: public; Owner: michelleglauser
+--
+
+COPY chishenma_app_menu (id, menu_price, menu_num_people, menu_tags, menu_date) FROM stdin;
+\.
+
+
+--
+-- Name: chishenma_app_menu_id_seq; Type: SEQUENCE SET; Schema: public; Owner: michelleglauser
+--
+
+SELECT pg_catalog.setval('chishenma_app_menu_id_seq', 1, false);
+
+
+--
+-- Data for Name: chishenma_app_restaurant; Type: TABLE DATA; Schema: public; Owner: michelleglauser
+--
+
+COPY chishenma_app_restaurant (id, rest_name_en, rest_name_cn, rest_branch, rest_other_branches, rest_img, rest_desc, rest_dianping_id, rest_position, rest_address, rest_district, rest_city, rest_phone, rest_hours, rest_url, rest_map_url, category_id, rest_dishes_id, bookmarked_by_id, rest_menu_id) FROM stdin;
+1	Masala Art					Authentic Indian cuisine	\N	0,0	397 Dagu Road	Jing'an	Shanghai	+86 21 6327 3571				1	\N	\N	\N
+\.
+
+
+--
+-- Name: chishenma_app_restaurant_id_seq; Type: SEQUENCE SET; Schema: public; Owner: michelleglauser
+--
+
+SELECT pg_catalog.setval('chishenma_app_restaurant_id_seq', 1, true);
+
+
+--
+-- Data for Name: chishenma_app_review; Type: TABLE DATA; Schema: public; Owner: michelleglauser
+--
+
+COPY chishenma_app_review (id, review_text, review_date, restaurant_id, reviewer_id) FROM stdin;
+\.
+
+
+--
+-- Name: chishenma_app_review_id_seq; Type: SEQUENCE SET; Schema: public; Owner: michelleglauser
+--
+
+SELECT pg_catalog.setval('chishenma_app_review_id_seq', 1, false);
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: michelleglauser
+--
+
+COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, object_repr, action_flag, change_message) FROM stdin;
+1	2014-05-06 19:49:13.390832-07	1	8	1	Indian	1	
+2	2014-05-06 19:52:58.853895-07	1	10	1	Masala Art	1	
+3	2014-05-07 01:42:03.958464-07	1	4	2	jenny	1	
+4	2014-05-07 01:42:17.817961-07	1	4	2	jenny	2	No fields changed.
+\.
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: michelleglauser
+--
+
+SELECT pg_catalog.setval('django_admin_log_id_seq', 4, true);
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: michelleglauser
+--
+
+COPY django_content_type (id, name, app_label, model) FROM stdin;
+1	log entry	admin	logentry
+2	permission	auth	permission
+3	group	auth	group
+4	user	auth	user
+5	content type	contenttypes	contenttype
+6	session	sessions	session
+7	migration history	south	migrationhistory
+8	category	chishenma_app	category
+9	dish	chishenma_app	dish
+10	restaurant	chishenma_app	restaurant
+11	menu	chishenma_app	menu
+12	review	chishenma_app	review
+13	foodie	chishenma_app	foodie
+14	bookmark	chishenma_app	bookmark
+\.
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: michelleglauser
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 14, true);
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: michelleglauser
+--
+
+COPY django_session (session_key, session_data, expire_date) FROM stdin;
+xz5ytr9wfq9w5ia450c1jv3sn6d1111j	YWQ5MThjMGRjMGZmNmFhMjMzMmJlYjE5OTFkY2M0MzMwNTE0YjI5YTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=	2014-06-01 08:58:53.233337-07
+l9idtyk586zza6cqs4hv0b5ydio0vwau	YWZhNTA3ZDk2NzgwNzEwNTlmZGY0YjY4ZTU0MjE5OTViNjBlZjQ4Yjp7fQ==	2014-06-04 05:30:14.252609-07
+\.
+
+
+--
+-- Data for Name: south_migrationhistory; Type: TABLE DATA; Schema: public; Owner: michelleglauser
+--
+
+COPY south_migrationhistory (id, app_name, migration, applied) FROM stdin;
+1	chishenma_app	0001_initial	2014-05-06 19:47:12.82561-07
+2	chishenma_app	0002_initial	2014-05-06 19:47:25.211563-07
+3	chishenma_app	0003_initial	2014-05-06 19:47:25.216585-07
+4	chishenma_app	0004_initial	2014-05-08 21:02:51.606083-07
+\.
+
+
+--
+-- Name: south_migrationhistory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: michelleglauser
+--
+
+SELECT pg_catalog.setval('south_migrationhistory_id_seq', 4, true);
+
+
+--
+-- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions_group_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_key UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission_content_type_id_codename_key; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_key UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups_user_id_group_id_key; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_key UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_key UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: chishenma_app_bookmark_pkey; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY chishenma_app_bookmark
+    ADD CONSTRAINT chishenma_app_bookmark_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: chishenma_app_category_pkey; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY chishenma_app_category
+    ADD CONSTRAINT chishenma_app_category_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: chishenma_app_dish_menu_dish_id_782ac078504ec407_uniq; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY chishenma_app_dish_menu
+    ADD CONSTRAINT chishenma_app_dish_menu_dish_id_782ac078504ec407_uniq UNIQUE (dish_id, menu_id);
+
+
+--
+-- Name: chishenma_app_dish_menu_pkey; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY chishenma_app_dish_menu
+    ADD CONSTRAINT chishenma_app_dish_menu_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: chishenma_app_dish_pkey; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY chishenma_app_dish
+    ADD CONSTRAINT chishenma_app_dish_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: chishenma_app_foodie_pkey; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY chishenma_app_foodie
+    ADD CONSTRAINT chishenma_app_foodie_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: chishenma_app_foodie_user_wechat_id_key; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY chishenma_app_foodie
+    ADD CONSTRAINT chishenma_app_foodie_user_wechat_id_key UNIQUE (user_wechat_id);
+
+
+--
+-- Name: chishenma_app_menu_pkey; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY chishenma_app_menu
+    ADD CONSTRAINT chishenma_app_menu_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: chishenma_app_restaurant_pkey; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY chishenma_app_restaurant
+    ADD CONSTRAINT chishenma_app_restaurant_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: chishenma_app_review_pkey; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY chishenma_app_review
+    ADD CONSTRAINT chishenma_app_review_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type_app_label_model_key; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_key UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: south_migrationhistory_pkey; Type: CONSTRAINT; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+ALTER TABLE ONLY south_migrationhistory
+    ADD CONSTRAINT south_migrationhistory_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_name_like; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX auth_group_name_like ON auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_group_id ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_permission_id ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX auth_permission_content_type_id ON auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_group_id ON auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX auth_user_groups_user_id ON auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id ON auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX auth_user_user_permissions_user_id ON auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_like; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX auth_user_username_like ON auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: chishenma_app_bookmark_bookmarker_id; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX chishenma_app_bookmark_bookmarker_id ON chishenma_app_bookmark USING btree (bookmarker_id);
+
+
+--
+-- Name: chishenma_app_dish_menu_dish_id; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX chishenma_app_dish_menu_dish_id ON chishenma_app_dish_menu USING btree (dish_id);
+
+
+--
+-- Name: chishenma_app_dish_menu_menu_id; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX chishenma_app_dish_menu_menu_id ON chishenma_app_dish_menu USING btree (menu_id);
+
+
+--
+-- Name: chishenma_app_restaurant_bookmarked_by_id; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX chishenma_app_restaurant_bookmarked_by_id ON chishenma_app_restaurant USING btree (bookmarked_by_id);
+
+
+--
+-- Name: chishenma_app_restaurant_category_id; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX chishenma_app_restaurant_category_id ON chishenma_app_restaurant USING btree (category_id);
+
+
+--
+-- Name: chishenma_app_restaurant_rest_dishes_id; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX chishenma_app_restaurant_rest_dishes_id ON chishenma_app_restaurant USING btree (rest_dishes_id);
+
+
+--
+-- Name: chishenma_app_restaurant_rest_menu_id; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX chishenma_app_restaurant_rest_menu_id ON chishenma_app_restaurant USING btree (rest_menu_id);
+
+
+--
+-- Name: chishenma_app_review_restaurant_id; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX chishenma_app_review_restaurant_id ON chishenma_app_review USING btree (restaurant_id);
+
+
+--
+-- Name: chishenma_app_review_reviewer_id; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX chishenma_app_review_reviewer_id ON chishenma_app_review USING btree (reviewer_id);
+
+
+--
+-- Name: django_admin_log_content_type_id; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_content_type_id ON django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_user_id ON django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX django_session_expire_date ON django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_like; Type: INDEX; Schema: public; Owner: michelleglauser; Tablespace: 
+--
+
+CREATE INDEX django_session_session_key_like ON django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_permission_id_fkey FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_fkey FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_permission_id_fkey FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: bookmarked_by_id_refs_id_225428c8; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY chishenma_app_restaurant
+    ADD CONSTRAINT bookmarked_by_id_refs_id_225428c8 FOREIGN KEY (bookmarked_by_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: bookmarker_id_refs_id_f3fdcf81; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY chishenma_app_bookmark
+    ADD CONSTRAINT bookmarker_id_refs_id_f3fdcf81 FOREIGN KEY (bookmarker_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: category_id_refs_id_76f00874; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY chishenma_app_restaurant
+    ADD CONSTRAINT category_id_refs_id_76f00874 FOREIGN KEY (category_id) REFERENCES chishenma_app_category(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: content_type_id_refs_id_93d2d1f8; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT content_type_id_refs_id_93d2d1f8 FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: content_type_id_refs_id_d043b34a; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT content_type_id_refs_id_d043b34a FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: dish_id_refs_id_d3df5cb5; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY chishenma_app_dish_menu
+    ADD CONSTRAINT dish_id_refs_id_d3df5cb5 FOREIGN KEY (dish_id) REFERENCES chishenma_app_dish(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: group_id_refs_id_f4b32aac; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT group_id_refs_id_f4b32aac FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: menu_id_refs_id_adb5cdd6; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY chishenma_app_dish_menu
+    ADD CONSTRAINT menu_id_refs_id_adb5cdd6 FOREIGN KEY (menu_id) REFERENCES chishenma_app_menu(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: rest_dishes_id_refs_id_3193d0dc; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY chishenma_app_restaurant
+    ADD CONSTRAINT rest_dishes_id_refs_id_3193d0dc FOREIGN KEY (rest_dishes_id) REFERENCES chishenma_app_dish(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: rest_menu_id_refs_id_887bfa28; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY chishenma_app_restaurant
+    ADD CONSTRAINT rest_menu_id_refs_id_887bfa28 FOREIGN KEY (rest_menu_id) REFERENCES chishenma_app_menu(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: restaurant_id_refs_id_e6bdf908; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY chishenma_app_review
+    ADD CONSTRAINT restaurant_id_refs_id_e6bdf908 FOREIGN KEY (restaurant_id) REFERENCES chishenma_app_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: reviewer_id_refs_id_6860536d; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY chishenma_app_review
+    ADD CONSTRAINT reviewer_id_refs_id_6860536d FOREIGN KEY (reviewer_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_40c41112; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT user_id_refs_id_40c41112 FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_4dc23c39; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT user_id_refs_id_4dc23c39 FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_id_refs_id_c0d12874; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT user_id_refs_id_c0d12874 FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_wechat_id_refs_id_88e33bae; Type: FK CONSTRAINT; Schema: public; Owner: michelleglauser
+--
+
+ALTER TABLE ONLY chishenma_app_foodie
+    ADD CONSTRAINT user_wechat_id_refs_id_88e33bae FOREIGN KEY (user_wechat_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: michelleglauser
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM michelleglauser;
+GRANT ALL ON SCHEMA public TO michelleglauser;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
