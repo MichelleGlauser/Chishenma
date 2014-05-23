@@ -54,7 +54,7 @@ class Restaurant(models.Model):
     bookmarked_by = models.ForeignKey(User, null=True, blank=True) # Users who have bookmarked a restaurant
     rest_menu = models.ForeignKey('Menu', null=True, blank=True)
 
-    objects = models.GeoManager()
+    # objects = models.GeoManager()
     def __unicode__(self):
         return self.rest_name_en
 
