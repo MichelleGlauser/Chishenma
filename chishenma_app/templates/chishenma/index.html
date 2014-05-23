@@ -25,12 +25,20 @@
             {% if user.is_authenticated %}
         <p>Hello, {{user.username}}!</p>
             {% else %}
-        <p>Log in below or <a href="/register/">click here to sign up</a></p>
+        <p>We can't wait to show you our app! Please fill in the information below to join our waiting list.</p>
+        <!-- <p>Log in below or <a href="/register/">click here to sign up</a></p> -->
             {% endif %}
         </div>
 
         {% if not authenticated %}
-        <form method="POST" action="{% url 'login' %}">
+            <form action="{% url 'waiting_list' %}" method="post">
+                <!-- {{ user_form.as_p }} -->
+                {{ city_form.as_p }}
+                {{ waitlist_form.as_p }}
+                <input type="submit" value="Join waiting list"/>
+                {% csrf_token %}
+            </form>
+        <!-- <form method="POST" action="{% url 'login' %}">
             {{ form.username.errors }}
             <label for="username">WeChat User Name:</label>
             {{ form.username }}
@@ -39,7 +47,7 @@
             {{ form.password }}
             <input type="submit" value="Submit"/>
             {% csrf_token %}
-        </form>
+        </form> -->
         {% else %}
         <a href="{% url 'logout' %}">Logout</a>
         <!-- Footer -->

@@ -20,12 +20,30 @@ from chishenma_app.models import Category, Dish, Menu, Review, Restaurant, Bookm
 
 
 def index(request):
-	if not request.user.is_authenticated():
-		form = AuthenticationForm(request)
-	else:
-		form = None
-	context = {'form':form}
-	return render(request, 'chishenma/index.html', context)
+	# user_form = UserCreationForm()
+	city_form = UserCityForm()
+	waitlist_form = WaitlistForm()
+
+	if request.method == 'POST':
+		city_form = UserCityForm(request.POST)
+		waitlist_form = WaitlistForm(request.POST)
+
+	if city_form.is_valid() and waitlist_form.is_valid():
+		Foodie.objects.create(user_wechat=new_user, user_email=waitlist_form['email'].value(), user_city=city_form['user_city'].value())
+		list_item, created = add_to_waitlist(waitlist_form.cleaned_data['email'])
+
+		return redirect(reverse('home'))
+
+	return render(request, "chishenma/index.html", {
+		'city_form': city_form,
+		'waitlist_form': waitlist_form,
+	})
+	# if not request.user.is_authenticated():
+	# 	form = AuthenticationForm(request)
+	# else:
+	# 	form = None
+	# context = {'form':form}
+	# return render(request, 'chishenma/index.html', context)
 
 @atomic
 def register(request):
@@ -102,6 +120,9 @@ def invalid_login(request):
 def logout(request):
 	auth.logout(request)
 	return render(request, 'registration/logout.html')
+
+def waiting_list(request):
+	return render(request, 'registration/waitlist.html')
 
 
 

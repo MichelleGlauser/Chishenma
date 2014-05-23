@@ -23,7 +23,7 @@ urlpatterns = patterns('',
     url(r'^loggedin/$', 'chishenma_app.views.loggedin'),
     url(r'^invalid/$', 'chishenma_app.views.invalid_login'),
     url(r'^register/$', 'chishenma_app.views.register'),
-    # url(r'^waitinglist/', include('waitinglist.urls')),
+    url(r'^waiting_list/$', 'chishenma_app.views.waiting_list', name='waiting_list'),
 
     # page urls
     url(r'^choose_category/$', 'chishenma_app.views.choose_category', name="choose_category"),
