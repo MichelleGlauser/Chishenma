@@ -50,7 +50,6 @@ class Migration(SchemaMigration):
             ('rest_img', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
             ('rest_desc', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('rest_dianping_id', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
-            ('rest_position', self.gf('django.contrib.gis.db.models.fields.PointField')(null=True)),
             ('rest_address', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('rest_district', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('rest_city', self.gf('django.db.models.fields.CharField')(max_length=50)),
@@ -232,7 +231,6 @@ class Migration(SchemaMigration):
             'rest_name_en': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'rest_other_branches': ('django.db.models.fields.CharField', [], {'max_length': '400', 'blank': 'True'}),
             'rest_phone': ('django.db.models.fields.CharField', [], {'max_length': '30'}),
-            'rest_position': ('django.contrib.gis.db.models.fields.PointField', [], {'null': 'True'}),
             'rest_url': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'})
         },
         u'chishenma_app.review': {

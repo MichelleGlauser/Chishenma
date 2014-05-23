@@ -15,13 +15,19 @@
 
 <!-- Header -->
 <div data-role="header" data-position="fixed" style="background-color:#EEEEEE;" data-tap-toggle="false">
-    <h1>ChiShenMa</h1>
+    <h1>Welcome to ChiShenMa!</h1>
 </div><!-- /header -->
 
     <div data-role="content">
 
         
-        Welcome!
+        <div id="user_area">
+            {% if user.is_authenticated %}
+        <p>Hello, {{user.username}}!</p>
+            {% else %}
+        <p>Log in below or <a href="/register/">click here to sign up</a></p>
+            {% endif %}
+        </div>
 
         {% if not authenticated %}
         <form method="POST" action="{% url 'login' %}">
@@ -36,21 +42,15 @@
         </form>
         {% else %}
         <a href="{% url 'logout' %}">Logout</a>
+        <!-- Footer -->
+        <div data-role="footer" data-theme="a" data-position="fixed" style="background-color:#EEEEEE;" data-tap-toggle="false"> 
+            <a href="{% url 'choose_category' %}" class="ui-btn ui-corner-all" style="background-color:#FFCC00; display:block; margin:5px;">Click here to find something to eat!</a>
+        </div><!-- /footer --> 
         {% endif %}
 
-        <div id="user_area">
-            {% if user.is_authenticated %}
-        <p>Hello, {{user.username}}!</p>
-            {% else %}
-          <p><a href="/login/">Log in</a></p>
-        <p><a href="/register/">Sign up</a></p>
-            {% endif %}
-        </div>
+        
     
-    <!-- Footer -->
-    <div data-role="footer" data-theme="a" data-position="fixed" style="background-color:#EEEEEE;" data-tap-toggle="false"> 
-        <a href="{% url 'choose_category' %}" class="ui-btn ui-corner-all" style="background-color:#FFCC00; display:block; margin:5px;">Click here to find something to eat!</a>
-    </div><!-- /footer -->    
+       
         <!-- <div class="choice_list">
         <a href="{% url 'choose_category' %}" data-role="button"><h1>Click here to find something to eat!</h1></a>
         {% if category_list %}
