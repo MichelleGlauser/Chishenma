@@ -14,7 +14,7 @@ from django.views.generic import TemplateView
 from chishenma_app.forms import UserCityForm, WaitlistForm
 from chishenma_app.models import Foodie
 # from django.contrib.auth.models import User, Permission
-from bouncer import functions
+from bouncer.functions import add_to_waitlist
 
 from chishenma_app.models import Category, Dish, Menu, Review, Restaurant, Bookmark, User
 
@@ -42,7 +42,7 @@ def register(request):
 	if user_form.is_valid() and city_form.is_valid() and waitlist_form.is_valid():
 		new_user = user_form.save()
 		Foodie.objects.create(user_wechat=new_user, user_email=waitlist_form['email'].value(), user_city=city_form['user_city'].value())
-		list_item, created = add_to_waitlist(form.cleaned_data['user_email'])
+		list_item, created = add_to_waitlist(waitlist_form.cleaned_data['email'])
 
 		return redirect(reverse('home'))
 
