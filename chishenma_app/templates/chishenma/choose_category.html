@@ -14,12 +14,20 @@
         <p>Welcome, and thanks for testing <strong>ChiShenMa</strong>!  Please kindly excuse the mess, this is still a work in progress.  Feel free to play around and let us know your feedback!</p>
     </div>
     <script>
-    jQuery(document).on ( 'pageinit', '#one', function(event) {
-    setTimeout(function(){
-        $( '#popupWelcome' ).popup(); 
-        $( '#popupWelcome' ).popup('open'); 
-    },500);
-    });
+    $(document).on("pagecontainershow", function () {
+    var activePage = $.mobile.pageContainer.pagecontainer("getActivePage");
+    if (activePage[0].id == "one") {
+        setTimeout(function () {
+            $("#popupWelcome").popup().popup("open");
+        }, 50);
+    }
+});
+    // jQuery(document).on ( 'pageinit', '#one', function(event) {
+    // setTimeout(function(){
+    //     $( '#popupWelcome' ).popup(); 
+    //     $( '#popupWelcome' ).popup('open'); 
+    // },500);
+    // });
     </script>
     <!-- Header -->
     <div data-role="header" data-position="fixed" style="background-color:#EEEEEE;" data-tap-toggle="false">
