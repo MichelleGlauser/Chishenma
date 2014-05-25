@@ -14,16 +14,25 @@
 
 
     <script>
-    $( document ).on( "pagecontainershow", function ( event, ui ) {
-            var activePage = $.mobile.pageContainer.pagecontainer( "getActivePage" );
-            $(".slick", activePage ).slick(); /* initialize Slick plugin */
+    $(document).on("pagecontainershow", function () {
+        var activePage = $.mobile.pageContainer.pagecontainer("getActivePage");
+        if (activePage[0].id == "four") {
+            $("#popupDecideOMatic").popup().popup("open");
+            $(".slick", activePage).slick();
+        }
     });
-    jQuery(document).on ( 'pageinit', '#four', function(event) {
-    setTimeout(function(){
-        $( '#popupDecideOMatic' ).popup(); 
-        $( '#popupDecideOMatic' ).popup('open'); 
-    },500);
-    });
+    // $( document ).on( "pagecontainershow", function ( event, ui ) {
+    //         var activePage = $.mobile.pageContainer.pagecontainer( "getActivePage" );
+    //         $(".slick", activePage ).slick(); /* initialize Slick plugin */
+    //         $( '#popupDecideOMatic' ).popup(); 
+    //         $( '#popupDecideOMatic' ).popup('open');
+    // });
+    // jQuery(document).on ( 'pageinit', '#four', function(event) {
+    // setTimeout(function(){
+    //     $( '#popupDecideOMatic' ).popup(); 
+    //     $( '#popupDecideOMatic' ).popup('open'); 
+    // },500);
+    // });
     </script>
 
     <div data-role="header" data-position="fixed" style="background-color:#EEEEEE;" data-tap-toggle="false" data-add-back-btn="true">
