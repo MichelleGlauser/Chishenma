@@ -29,10 +29,8 @@ def index(request):
 
 	if user_form.is_valid() and user_waitlist_form.is_valid():
 		new_user = user_form.save()
-		Foodie.objects.create(user_wechat=new_user, user_email=user_waitlist_form['user_email'].value(), user_city=user_waitlist_form['user_city'].value())
-
-		# return redirect(reverse('home'))
-		return render(request, 'registration/waiting_list.html)
+		Foodie.objects.create(user_wechat=new_user, user_email=user_waitlist_form['user_email'].value(), user_city=user_waitlist_form['user_city'].value(), user_waitlist_status=True)
+		return render(request, 'registration/waiting_list.html')
 
 	return render(request, 'chishenma/index.html', {
 		'user_form': user_form,

@@ -84,6 +84,16 @@ class Foodie(models.Model):
     # extended models for the User
     user_city = models.CharField(max_length=25)
     user_waitlist_status = models.BooleanField(default=False)
+
+    # @classmethod
+    # def waitlist_user():
+
+    # Foodie.waitlist_user("")
+
+    # @property
+    # def waitlist_user(self)
+    #     return not self.user_waitlist_status
+
     user_waitlist_num = models.IntegerField(blank=True, default=0)
     user_num_referrals = models.IntegerField(blank=True, default=0)
     user_email = models.EmailField()
