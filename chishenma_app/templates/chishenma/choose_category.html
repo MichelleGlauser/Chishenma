@@ -18,7 +18,7 @@
     var activePage = $.mobile.pageContainer.pagecontainer("getActivePage");
     if (activePage[0].id == "one") {
         setTimeout(function () {
-            $("#popupWelcome").popup().popup("open");
+            $("#popupWelcome").popup("open");
         }, 50);
     }
 });
