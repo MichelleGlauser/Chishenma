@@ -5,12 +5,19 @@
 
 <!-- Start of decide-o-matic page: #four -->
 
+    <div data-role="page" id="four" data-theme="a">
     <div data-role="popup" id="popupDecideOMatic" class="ui-content" data-theme="a" data-overlay-theme="b" data-history="false" style="max-width:300px;background-color:#FFFF99;">
         <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
         <p>This is an early test of the <strong>Decide-O-Matic</strong>.  Swipe right if you like a picture and left if you don't.  After 10 swipes, we will match you with the perfect restaurant!</p>
     </div>
-
-    <div data-role="page" id="four" data-theme="a">
+    <script>
+    jQuery(document).on ( 'pageinit', '#four', function(event) {
+    setTimeout(function(){
+        $( '#popupDecideOMatic' ).popup(); 
+        $( '#popupDecideOMatic' ).popup('open'); 
+    },500);
+    });
+    </script>
 
     <div data-role="header" data-position="fixed" style="background-color:#EEEEEE;" data-tap-toggle="false" data-add-back-btn="true">
         <h1>Decide-o-matic</h1>
