@@ -3,21 +3,115 @@
 {% block title %}{% endblock %}
 {% block content %}
 
-
 <!-- Start of restaurant details: #three -->
 	<div data-role="page" id="three" data-theme="a">
 
 	<!-- Header -->
 	<div data-role="header" data-position="fixed" style="background-color:#EEEEEE;" data-tap-toggle="false" data-add-back-btn="true">
-		<h1>Restaurant Details</h1>
+		<h1>Mexo at the Bund—Modern Mexican Cuisine</h1>
 	</div>
 
 	<div role="main" class="ui-content" style="padding:0px;">
-		<div class="ui-grid-solo	">
-			<div class="ui-block-a" style="margin:0;"><div class="ui-bar ui-bar-a" style="height:auto;padding:0px;">
-				<div id="owl-demo" class="owl-carousel owl-theme">
-				  <div class="item"><img src="{% static 'images/interiors/fu1039_interior_1.png' %}"></div>
-				  <div class="item"><img src="{% static 'images/interiors/fu1039_interior_1.png' %}"></div>
+		<div role="main" class="ui-content">
+
+    <div class="ui-grid-solo  ">
+        <div class="ui-block-a" style="margin:0.5em 0;"><a href="{% url 'restaurant_details' %}" data-transition="flow"><div class="ui-bar ui-bar-a" style="height:auto;padding:0px;">
+            <img class="img_categories" src="{% static 'images/interiors/MexoAtTheBund.png' %}">
+            <h2 class="restaurant_title" style="margin:0px 10px;"><span style="font-size:1.5em;">Famous Red Enchiladas</span></h2>
+            <h3 class="restaurant_district"><span>Huangpu</span></h3>
+            <h4 class="restaurant_name" style="margin:0px 10px;"><span>MEXO AT THE BUND</span></h4>
+        </div></a></div>
+        <p>
+		    <a href="http://http://mexoatthebund.com/" rel="external" data-role="button">See our website</a>
+		</p>
+    	<div class="">
+
+		    <img class="img_categories" style="width:45%; float:right;" src="{% static 'images/MexoDish.png' %}">
+		    <h2>On the menu:</h2>
+			<ul> 
+				<li>Red Enchiladas</li>
+				<li>Chimichanga</li>
+				<li>Tamarind Short Ribs</li>
+				<li>Carpacciao</li>
+				<li>Duck and Red Mole</li>
+				<li>Chorizo</li>
+<!-- 				<li>Guacamole</li>
+				<li>Piña Colada</li> -->
+		    </ul>	
+		</div>
+		</hr>
+		<div class="">
+			<h2>Contact us:</h2>
+	    		<p style="margin-left:20px;">Wharf 1846, 601 Waima Lu, Building 3, Room 114, near Zhuhangmatou Jie, Huangpu, Shanghai</p>
+		</div>
+		<div id="">	
+    		<a href="https://www.google.com/maps/place/Wharf+1846/@31.2178138,121.5075068,19z/data=!4m2!3m1!1s0x35b270915dc758c5:0xa7ae6dba68a7f676" data-role="button">See a map of our location</a>
+    		<a href="3330-0977" data-role="button" >Call us</a>
+    	</div>
+  </div><!-- /content -->
+
+
+<!-- 		<div class="ui-grid-a" id="restau_infos"> -->
+<!-- 			<div class="ui-block-a"> -->		
+<!-- 			</div>	 -->	
+
+<!-- 			<div class="ui-block-b">
+	            <p>
+		            <img src="{% static 'images/interiors/MexoAtTheBund.png' %}"/> -->
+		            <!-- <img src={{ restaurant.picture.url }} alt={{restaurant.name}} /> -->
+<!-- 	            </p>
+		    	<p>
+		    		<a href="http://http://mexoatthebund.com/" rel="external" data-role="button">See our website</a> -->
+			    	<!-- <a href="{{ restaurant.web }}" rel="external" data-role="button">See our website</a> -->
+<!-- 		    	</p>
+		    	<p> On the menu: </p>
+			    	<ul> 
+			    		<li>Red Enchiladas</li>
+			    		<li>Chimichanga</li>
+			    		<li>Tamarind Short Ribs</li>
+			    		<li>Carpacciao</li>
+			    		<li>Duck and Red Mole</li>
+			    		<li>Chorizo</li> -->
+	                    <!-- {% for m in rest_menu %}
+	                        <li>{{m}}</li>
+	                    {% endfor %} -->
+	<!-- 	    		</ul>	
+			</div>
+		</div> --><!-- /grid-a -->
+	
+<!-- 	<div class="ui-grid-a" id="contact_infos">	
+		<div class="ui-block-a">
+    		<h2> Contact us</h2>
+    		<p>Wharf 1846 601 Waima Lu,Bldg 3, Room 114,near Zhuhangmatou Jie</p>
+    		<p>Shanghai</p> -->
+<!-- 	    	<p>{{restaurant.address}}</p>
+		    <p>{{restaurant.post_code}} {{restaurant.town }}</p>	 -->	
+	<!-- 	</div>
+		
+		<div class="ui-block-b"> -->
+            <!-- <img src={{restaurant.map.url}} alt="map" /> -->
+<!-- 		</div>
+	</div> --><!-- /grid-a -->
+<!-- 
+	<div id="contact_buttons">	
+	    <a href="https://www.google.com/maps/place/Wharf+1846/@31.2178138,121.5075068,19z/data=!4m2!3m1!1s0x35b270915dc758c5:0xa7ae6dba68a7f676" data-role="button">See map</a> -->
+<!--         <a href="{{restaurant.gmap_url}}" data-role="button" data-icon="maps"> Find us on Google Maps </a> 	 -->
+<!-- 		<a href="3330-0977"  data-role="button" >Call us</a> -->
+		<!-- <a href="tel:{{restaurant.phone}}"  data-role="button" data-icon="tel"> Call us </a> -->	
+	</div>	
+	
+	<hr/>
+	
+
+
+
+<!-- 		<div class="ui-grid-solo	">
+			<div class="ui-block-a" style="margin:0;"><div class="" style="height:auto;padding:0px;">
+				<div id="owl-demo" class=""> -->
+
+
+<!-- 				  <div class="item"><img src="{% static 'images/interiors/fu1039_interior_1.png' %}"></div> -->
+				  <!-- <div class="item"><img src="{% static 'images/interiors/fu1039_interior_1.png' %}"></div>
 				</div>
 				<h2 class="restaurant_title" style="margin:0px 10px;"><span style="font-size:1.5em;">Shanghai 1920s Style</span></h2>
 				<h3 class="restaurant_district"><span>Jingan</span></h3>
@@ -28,7 +122,7 @@
 				<p class="rest_deets_p">This is a test</p>
 			</div></div>
 
-		</div>
+		</div> -->
 	</div><!-- /content -->
 
 	</div>
