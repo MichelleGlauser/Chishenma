@@ -40,9 +40,9 @@ class MyUserAdmin(UserAdmin):
     form = UserChangeForm
     add_form = MyUserCreationForm
     change_password_form = AdminPasswordChangeForm
-    list_display = ('user_wechat', 'user_city', 'user_waitlist_status', 'user_waitlist_num', 'user_num_referrals')
+    list_display = ('user_wechat', 'user_city', 'user_waitlist_status', 'user_waitlist_num', 'user_num_referrals', 'user_email')
     list_filter = ()
-    search_fields = ('user_wechat', 'user_city', 'user_waitlist_status', 'user_waitlist_num', 'user_num_referrals')
+    search_fields = ('user_wechat', 'user_city', 'user_waitlist_status', 'user_waitlist_num', 'user_num_referrals', 'user_email')
     ordering = ('user_wechat',)
     filter_horizontal = ()
 
