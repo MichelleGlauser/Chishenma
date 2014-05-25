@@ -5,7 +5,7 @@
 
 <!-- Start of decide-o-matic page: #four -->
 
-    <div data-role="popup" id="popupDecideOMatic" class="ui-content" data-theme="a" data-overlay-theme="b" style="max-width:300px;background-color:#FFFF99;">
+    <div data-role="popup" id="popupDecideOMatic" class="ui-content" data-theme="a" data-overlay-theme="b" data-history="false" style="max-width:300px;background-color:#FFFF99;">
         <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
         <p>This is an early test of the <strong>Decide-O-Matic</strong>.  Swipe right if you like a picture and left if you don't.  After 10 swipes, we will match you with the perfect restaurant!</p>
     </div>
@@ -30,7 +30,138 @@
     </div><!-- /content -->
 
     </div>
+<style>
+/*.slider-item {
+ position            : 'relative';
+ background-position : 0 0;
+ background-repeat   : no-repeat;
+ background-size     : auto 100%;
+ display             : block;
+}*/
+</style>
 <script>
+// function detect_device_type (obj) {
+//  var ua = navigator.userAgent.toLowerCase()
+//  obj.is_iphone = (ua.match(/iphone/i) != null)
+//  obj.is_ipad = (ua.match(/ipad/i) != null)
+//  obj.is_idevice = obj.is_iphone || obj.is_ipad
+//  obj.is_android = (ua.match(/android/i) != null)
+//  obj.is_chromium = (ua.match(/chrome/i) != null)
+//  obj.is_windows_phone = (ua.match(/Windows Phone/i) != null)
+//  obj.is_phone_or_tablet = (obj.is_idevice || obj.is_android || obj.is_windows_phone)
+// }
+
+// // N.B.: For PCs, use .preventDefault on dragstart. For mobile, use .preventDefault on touchmove.
+// function add_swipe_controls (init) {
+//  void function (init) {
+//   if (typeof init.is_mobile == "undefined") init.is_mobile = true
+//   var target_obj = init.target, initial_x, initial_y, current_x, current_y, swipe_in_effect = false
+//   target_obj.addEventListener (init.is_mobile ? 'touchstart'  : 'mousedown', swipe_start_event)
+//   target_obj.addEventListener (init.is_mobile ? 'touchmove'   : 'mousemove', swipe_event)
+//   target_obj.addEventListener (init.is_mobile ? 'touchend'    : 'mouseup', function (evt) {if (swipe_in_effect == false) return; swipe_end_event (evt)})
+//   target_obj.addEventListener (init.is_mobile ? 'touchleave'  : 'mouseout', function (evt) {if (swipe_in_effect == false) return; swipe_end_event (evt)})
+//   target_obj.addEventListener (init.is_mobile ? 'touchcancel' : 'blur', function (evt) {if (swipe_in_effect == false) return; swipe_end (evt)})
+//   function swipe_end (evt) {
+//    if (swipe_in_effect == false) return
+//    swipe_in_effect = false
+//    if (typeof init.end_effect != "undefined") init.end_effect (evt)
+//   }
+//   function swipe_start_event (evt) {
+//    if ((typeof init.start_condition != "undefined") && (init.start_condition (evt) == false)) return
+//    if ((init.is_mobile) && (evt.touches.length != 1)) return
+//    var xy = getXY((init.is_mobile) ? evt.touches[0] : evt, target_obj); initial_x = xy[0]; initial_y = xy[1]
+//    current_x = initial_x; current_y = initial_y
+//    if (swipe_in_effect == true) return
+//    swipe_in_effect = true
+//    if (typeof init.start_effect != "undefined") init.start_effect (evt)
+//   }
+//   function swipe_event (evt) {
+//    if (
+//        ((init.is_mobile) && (evt.touches.length != 1)) ||
+//        ((typeof init.continue_condition != "undefined") && (init.continue_condition(evt) === false))
+//       ) {swipe_end (evt); return}
+//    var xy = getXY((init.is_mobile) ? evt.touches[0] : evt, target_obj); current_x = xy[0]; current_y = xy[1]
+//    if (typeof init.swipe_move != "undefined") init.swipe_move ({evt: evt, init: init, initial_x: initial_x, initial_y: initial_y, current_x: current_x, current_y: current_y, swipe_in_effect: swipe_in_effect})
+//   }
+//   function swipe_end_event (evt) {
+//    if ((typeof init.continue_condition != "undefined") && (init.continue_condition(evt) === false)) {swipe_end (evt); return}
+//    if (current_x < initial_x) {
+//     if (typeof init.swipe_left != "undefined") init.swipe_left (evt)
+//    } else {
+//     if ((current_x > initial_x) && (typeof init.swipe_right != "undefined")) init.swipe_right (evt)
+//    }
+//    if (current_y < initial_y) {
+//     if (typeof init.swipe_down != "undefined") init.swipe_down (evt)
+//    } else {
+//     if ((current_y > initial_y) && (typeof init.swipe_up != "undefined")) init.swipe_up (evt)
+//    }
+//    swipe_end (evt)
+//   }
+//  } (init)
+// }
+
+// function getXY (evt, target) {
+//  if (typeof target == "undefined") target = evt.target
+//  var rect = target.getBoundingClientRect(); return [evt.clientX - rect.left, evt.clientY - rect.top]
+// }
+
+
+// var gs = {}
+// detect_device_type (gs)
+
+// var no_list = []
+// var yes_list = []
+// var image_list = ['{% static "images/indian.jpg" %}', '{% static "images/hamburger.jpg" %}', '{% static "images/italian-pizza.jpg" %}', '{% static "images/hummus.jpg" %}', '{% static "images/pie.jpg" %}', '{% static "images/montecristo.jpg" %}', '{% static "images/eclairs.jpg" %}'];
+
+// var current_image = document.createElement ('div'); current_image.className = "slider-item"
+// current_image.addEventListener ('touchmove', function (evt) {evt.preventDefault()})
+// current_image.addEventListener ('dragstart', function (evt) {evt.preventDefault (); return false})
+// document.body.appendChild (current_image)
+// var current_index = -1
+
+// advance_index (current_index)
+
+// add_swipe_controls ({
+//  target      : current_image,
+//  swipe_move  : function (swipe_data) {
+//   if (!swipe_data.swipe_in_effect) return
+//   var evt       = swipe_data.evt
+//   var initial_x = swipe_data.initial_x
+//   var current_x = swipe_data.current_x
+//   var init      = swipe_data.init
+//   var adjust_x  = current_x - initial_x
+//   current_image.style.backgroundPosition = (current_x - initial_x) + "px 0"
+//  },
+//  swipe_left  : function () {
+//   no_list.push (image_list[current_index])
+//   advance_index ()
+//  },
+//  swipe_right : function () {
+//   yes_list.push (image_list[current_index])
+//   advance_index ()
+//  },
+//  is_mobile   : gs.is_phone_or_tablet,
+// })
+
+// function advance_index () {
+//  current_index += 1
+//  if (current_index < image_list.length) {
+//   var test_image = new Image ()
+//   test_image.src = image_list[current_index]
+//   test_image.addEventListener ('load', function () {
+//    current_image.style.backgroundImage = "url(" + image_list[current_index] + ")"
+//    current_image.style.backgroundPosition = "0 0"
+//    current_image.style.width  = test_image.naturalWidth  + "px"
+//    current_image.style.height = "400px"
+//   })
+//   return
+//  }
+//  current_image.parentNode.removeChild (current_image)
+//  var count_div = document.createElement ('div')
+//  document.body.appendChild (count_div)
+//  count_div.innerHTML = "Yea: " + yes_list.join(", ") + ". <br/> Nay: " + no_list.join(", ") + "."
+// }
+
 $( document ).ready(function() {
 (function () {
     var noList = [];
