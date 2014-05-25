@@ -11,32 +11,31 @@ from django.core.urlresolvers import reverse
 from django.db.transaction import atomic
 from django.template import RequestContext, loader
 from django.views.generic import TemplateView
-from chishenma_app.forms import UserCityForm, WaitlistForm
+from chishenma_app.forms import UserWaitlistForm
 from chishenma_app.models import Foodie
 # from django.contrib.auth.models import User, Permission
-from bouncer.functions import add_to_waitlist
+# from bouncer.functions import add_to_waitlist
 
 from chishenma_app.models import Category, Dish, Menu, Review, Restaurant, Bookmark, User
 
 
 def index(request):
-	# user_form = UserCreationForm()
-	city_form = UserCityForm()
-	waitlist_form = WaitlistForm()
+	user_form = UserCreationForm()
+	user_waitlist_form = UserWaitlistForm()
 
 	if request.method == 'POST':
-		city_form = UserCityForm(request.POST)
-		waitlist_form = WaitlistForm(request.POST)
+		user_form = UserCreationForm(request.POST)
+		user_waitlist_form = UserWaitlistForm(request.POST)
 
-	if city_form.is_valid() and waitlist_form.is_valid():
-		Foodie.objects.create(user_wechat=new_user, user_email=waitlist_form['email'].value(), user_city=city_form['user_city'].value())
-		list_item, created = add_to_waitlist(waitlist_form.cleaned_data['email'])
+	if user_form.is_valid() and user_waitlist_form.is_valid():
+		new_user = user_form.save()
+		Foodie.objects.create(user_wechat=new_user, user_email=user_waitlist_form['user_email'].value(), user_city=user_waitlist_form['user_city'].value())
 
-		return redirect(reverse('home'))
+		# return redirect(reverse('home'))
 
 	return render(request, "chishenma/index.html", {
-		'city_form': city_form,
-		'waitlist_form': waitlist_form,
+		'user_form': user_form,
+		'user_waitlist_form': user_waitlist_form,
 	})
 	# if not request.user.is_authenticated():
 	# 	form = AuthenticationForm(request)
@@ -48,26 +47,21 @@ def index(request):
 @atomic
 def register(request):
 	user_form = UserCreationForm()
-	city_form = UserCityForm()
-	waitlist_form = WaitlistForm()
+	user_waitlist_form = UserWaitlistForm()
 
 	if request.method == 'POST':
 		user_form = UserCreationForm(request.POST)
-		city_form = UserCityForm(request.POST)
-		waitlist_form = WaitlistForm(request.POST)
+		user_waitlist_form = UserWaitlistForm(request.POST)
 
-	# add 'and waitlist_form.is_valid()'' for django-bouncer
-	if user_form.is_valid() and city_form.is_valid() and waitlist_form.is_valid():
+	if user_form.is_valid() and user_waitlist_form.is_valid():
 		new_user = user_form.save()
-		Foodie.objects.create(user_wechat=new_user, user_email=waitlist_form['email'].value(), user_city=city_form['user_city'].value())
-		list_item, created = add_to_waitlist(waitlist_form.cleaned_data['email'])
+		Foodie.objects.create(user_wechat=new_user, user_email=user_waitlist_form['user_email'].value(), user_city=user_waitlist_form['user_city'].value())
 
 		return redirect(reverse('home'))
 
 	return render(request, "registration/register.html", {
 		'user_form': user_form,
-		'city_form': city_form,
-		'waitlist_form': waitlist_form,
+		'user_waitlist_form': user_waitlist_form,
 	})
 
 def login(request):
@@ -122,7 +116,7 @@ def logout(request):
 	return render(request, 'registration/logout.html')
 
 def waiting_list(request):
-	return render(request, 'registration/waitlist.html')
+	return render(request, 'registration/waiting_list.html')
 
 
 
