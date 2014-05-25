@@ -14,13 +14,28 @@
 
 
     <script>
+//     $(document).on("pagecontainershow", function () {
+//     var activePage = $.mobile.pageContainer.pagecontainer("getActivePage");
+//     if (activePage[0].id == "four") {
+//         $("#popupDecideOMatic").popup().popup("open");
+//         $(".slick", activePage).slick();
+//     }
+// });
     $(document).on("pagecontainershow", function () {
         var activePage = $.mobile.pageContainer.pagecontainer("getActivePage");
         if (activePage[0].id == "four") {
-            $("#popupDecideOMatic").popup().popup("open");
-            $(".slick", activePage).slick();
+            setTimeout(function () {
+                $("#popupDecideOMatic").popup().popup("open");
+            }, 50);
+            $(".slider", activePage).slick();
         }
     });
+
+    // $( document ).on( "pagecontainershow", function ( event, ui ) {
+    //         var activePage = $.mobile.pageContainer.pagecontainer( "getActivePage" );
+    //         $(".slick", activePage ).slick(); /* initialize Slick plugin */
+    // });
+
     // $( document ).on( "pagecontainershow", function ( event, ui ) {
     //         var activePage = $.mobile.pageContainer.pagecontainer( "getActivePage" );
     //         $(".slick", activePage ).slick(); /* initialize Slick plugin */
