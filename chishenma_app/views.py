@@ -32,8 +32,9 @@ def index(request):
 		Foodie.objects.create(user_wechat=new_user, user_email=user_waitlist_form['user_email'].value(), user_city=user_waitlist_form['user_city'].value())
 
 		# return redirect(reverse('home'))
+		return render(request, 'registration/waiting_list.html')
 
-	return render(request, "chishenma/index.html", {
+	return render(request, 'chishenma/index.html', {
 		'user_form': user_form,
 		'user_waitlist_form': user_waitlist_form,
 	})
@@ -59,7 +60,7 @@ def register(request):
 
 		return redirect(reverse('home'))
 
-	return render(request, "registration/register.html", {
+	return render(request, 'registration/register.html', {
 		'user_form': user_form,
 		'user_waitlist_form': user_waitlist_form,
 	})
