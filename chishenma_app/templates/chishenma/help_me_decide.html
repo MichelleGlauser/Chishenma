@@ -11,7 +11,13 @@
     </div>
 
     <div data-role="page" id="four" data-theme="a">
+
+
     <script>
+    $( document ).on( "pagecontainershow", function ( event, ui ) {
+            var activePage = $.mobile.pageContainer.pagecontainer( "getActivePage" );
+            $(".slick", activePage ).slick(); /* initialize Slick plugin */
+    });
     jQuery(document).on ( 'pageinit', '#four', function(event) {
     setTimeout(function(){
         $( '#popupDecideOMatic' ).popup(); 
