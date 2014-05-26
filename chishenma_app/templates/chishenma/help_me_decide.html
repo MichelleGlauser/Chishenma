@@ -145,6 +145,8 @@
 // var yes_list = []
 // var image_list = ['{% static "images/indian.jpg" %}', '{% static "images/hamburger.jpg" %}', '{% static "images/italian-pizza.jpg" %}', '{% static "images/hummus.jpg" %}', '{% static "images/pie.jpg" %}', '{% static "images/montecristo.jpg" %}', '{% static "images/eclairs.jpg" %}'];
 
+// // var image_list = ['<img src="{% static 'images/indian.jpg' %}" alt="" title=""/>', '<img src="{% static 'images/hamburger.jpg' %}" alt="" title="hamburger"/>', '<img src="{% static 'images/italian-pizza.jpg' %}" alt="" title="pizza"/>', '<img src="{% static 'images/hummus.jpg' %}" alt="" title="hummus"/>', '<img src="{% static 'images/pie.jpg' %}" alt="" title="pie"/>', '<img src="{% static 'images/montecristo.jpg' %}" alt="" title="montecristo"/>', '<img src="{% static 'images/eclairs.jpg' %}" alt="" title="eclairs"/>'];
+
 // var current_image = document.createElement ('div'); current_image.className = "slider-item"
 // current_image.addEventListener ('touchmove', function (evt) {evt.preventDefault()})
 // current_image.addEventListener ('dragstart', function (evt) {evt.preventDefault (); return false})
@@ -198,7 +200,7 @@ $( document ).ready(function() {
 (function () {
     var noList = [];
     var yesList = [];
-    var images = ['<img src="{% static 'images/indian.jpg' %}" alt="" title=""/>', '<img src="{% static 'images/hamburger.jpg' %}" alt="" title="hamburger"/>', '<img src="{% static 'images/italian-pizza.jpg' %}" alt="" title="pizza"/>', '<img src="{% static 'images/hummus.jpg' %}" alt="" title="hummus"/>', '<img src="{% static 'images/pie.jpg' %}" alt="" title="pie"/>', '<img src="{% static 'images/montecristo.jpg' %}" alt="" title="montecristo"/>', '<img src="{% static 'images/eclairs.jpg' %}" alt="" title="eclairs"/>'];     
+    var images = ['<img src="{% static 'images/indian.jpg' %}" alt="" title=""/>', '<img src="{% static 'images/hamburger.jpg' %}" alt="" title="hamburger"/>', '<img src="{% static 'images/italian-pizza.jpg' %}" alt="" title="pizza"/>', '<img src="{% static 'images/hummus.jpg' %}" alt="" title="hummus"/>', '<img src="{% static 'images/pie.jpg' %}" alt="" title="pie"/>', '<img src="{% static 'images/montecristo.jpg' %}" alt="" title="montecristo"/>', '<img src="{% static 'images/eclairs.jpg' %}" alt="" title="eclairs"/>', '<a href="{% url 'restaurant_details' %}"><img src="{% static 'images/MexoAtTheBundFit.jpg' %}" alt="" title="Mexo"/></a>'];     
     
 var carousel = $('.slider').slick({
     slidesToShow: 1,
@@ -243,6 +245,9 @@ var carousel = $('.slider').slick({
     /** Prepare the first two items. */
     carousel.addNextImage();
     carousel.addNextImage();
+    if ($('.slick-slide img').length < 0) { 
+        console.log("Empty!");
+    }
     
     carousel.sortImages = function () {
     /** Do something when the carousel says nope or yup. */
@@ -267,9 +272,10 @@ var carousel = $('.slider').slick({
     yesList = carousel.sortImages();
     // console.log("Yay", yesList);
     // $('.results').replaceWith('You like:', yesList);
-    // if ($('.slick-track:not(:contains("img")')) {
+    // if ($('.slick-slide:not(:contains("img")')) {
     //     console.log("Empty!");
     // }
+
     
 }());
 });
