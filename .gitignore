@@ -7,3 +7,4 @@ staticfiles
 chishenma.db
 config/local
 .elasticbeanstalk/
+chishenma_project/settings.py
